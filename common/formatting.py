@@ -16,7 +16,7 @@ from typing import Optional
 
 import yaml
 
-from common.schemas import NextBestAction
+from common.schemas import ActionType, NextBestAction
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SYSTEM_PROMPT_PATH = PROJECT_ROOT / "common" / "system_prompts" / "v1_base.yaml"
@@ -95,11 +95,87 @@ def extract_json_object(text: str) -> Optional[dict]:
     return None
 
 
-def parse_next_best_action(raw_text: str) -> Optional[NextBestAction]:
+_ACTION_TYPE_VALUES = {e.value for e in ActionType}
+_ACTION_TYPE_ALIASES = {
+    "update_crm": "update_crm_field",
+    "escalate": "escalate_internal",
+    "log_risk": "log_risk_note",
+    "schedule": "schedule_meeting",
+    "email": "draft_email",
+    "draft_an_email": "draft_email",
+    "discount": "recommend_discount",
+    "none": "no_action",
+    "no_action_needed": "no_action",
+}
+
+
+def repair_next_best_action_dict(obj: dict) -> dict:
+    """Best-effort, deterministic fixes for common small-model JSON
+    malformations -- applied BEFORE re-validating, so most failures never
+    need a second model call at all. Only coerces types/defaults for
+    fields the schema already treats as structurally optional or bounded
+    (payload, risk_flags, confidence, action_type's exact spelling) --
+    never invents target_object or rationale content, since those can't be
+    safely guessed."""
+    obj = dict(obj)
+
+    action_type = obj.get("action_type")
+    if isinstance(action_type, str):
+        normalized = action_type.strip().lower().replace(" ", "_").replace("-", "_")
+        if normalized in _ACTION_TYPE_VALUES:
+            obj["action_type"] = normalized
+        else:
+            obj["action_type"] = _ACTION_TYPE_ALIASES.get(normalized, "other")
+
+    confidence = obj.get("confidence")
+    if isinstance(confidence, str):
+        try:
+            confidence = float(confidence.strip().rstrip("%"))
+            if confidence > 1.0:  # e.g. model wrote "80" meaning 80%
+                confidence = confidence / 100.0
+        except ValueError:
+            confidence = 0.5
+        obj["confidence"] = confidence
+    if isinstance(obj.get("confidence"), (int, float)):
+        obj["confidence"] = max(0.0, min(1.0, float(obj["confidence"])))
+    elif obj.get("confidence") is None:
+        obj["confidence"] = 0.5  # explicit low-confidence placeholder, never invented as high
+
+    if not isinstance(obj.get("payload"), dict):
+        obj["payload"] = {}
+
+    risk_flags = obj.get("risk_flags")
+    if not isinstance(risk_flags, list):
+        obj["risk_flags"] = [str(risk_flags)] if risk_flags else []
+    else:
+        obj["risk_flags"] = [str(x) for x in risk_flags]
+
+    return obj
+
+
+def parse_next_best_action_diagnostic(raw_text: str) -> tuple[Optional[NextBestAction], Optional[str]]:
+    """Like parse_next_best_action, but on failure returns (None, <specific
+    reason>) instead of a bare None -- distinguishes "no JSON found" from
+    "found JSON but it doesn't match the schema even after auto-repair",
+    and the repair pass means many small-model malformations (wrong
+    action_type spelling, confidence as a string/percentage, payload as a
+    string instead of an object) succeed WITHOUT needing another
+    generation call at all."""
     obj = extract_json_object(raw_text)
     if obj is None:
-        return None
+        return None, "no JSON object found in the response text"
+
     try:
-        return NextBestAction.model_validate(obj)
+        return NextBestAction.model_validate(obj), None
     except Exception:
-        return None
+        pass
+
+    try:
+        return NextBestAction.model_validate(repair_next_best_action_dict(obj)), None
+    except Exception as second_error:
+        return None, f"schema validation failed even after auto-repair: {second_error}"
+
+
+def parse_next_best_action(raw_text: str) -> Optional[NextBestAction]:
+    action, _ = parse_next_best_action_diagnostic(raw_text)
+    return action

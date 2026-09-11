@@ -107,6 +107,7 @@ def run_variant(variant_name: str, queries: list[dict], judge_backend) -> list[d
                 "tokens_per_second": perf["tokens_per_second"],
                 "peak_vram_mb": perf["peak_vram_mb"],
                 "retried": perf["retried"],
+                "parse_error": perf["parse_error"],
             }
             results.append(row)
             print(

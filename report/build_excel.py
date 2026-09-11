@@ -44,6 +44,9 @@ def build_per_query_df(results: list[dict]) -> pd.DataFrame:
                 "judge_correctness": r["judge"]["correctness"],
                 "judge_completeness": r["judge"]["completeness"],
                 "judge_risk_surfacing": r["judge"]["risk_surfacing"],
+                "judge_correctness_out_of_5": f"{r['judge']['correctness']} / 5",
+                "judge_completeness_out_of_5": f"{r['judge']['completeness']} / 5",
+                "judge_risk_surfacing_out_of_5": f"{r['judge']['risk_surfacing']} / 5",
                 "judge_rationale": r["judge"]["rationale"],
                 "output_tokens": r["output_tokens"],
                 "tokens_per_second": r["tokens_per_second"],
@@ -88,11 +91,80 @@ def build_aggregate_df(aggregate_summary: dict) -> pd.DataFrame:
                 "avg_judge_correctness": stats.get("avg_correctness"),
                 "avg_judge_completeness": stats.get("avg_completeness"),
                 "avg_judge_risk_surfacing": stats.get("avg_risk_surfacing"),
+                "avg_correctness_out_of_5": f"{stats.get('avg_correctness')} / 5",
+                "avg_completeness_out_of_5": f"{stats.get('avg_completeness')} / 5",
+                "avg_risk_surfacing_out_of_5": f"{stats.get('avg_risk_surfacing')} / 5",
+                "judge_quality_percent": round(
+                    100
+                    * (
+                        stats.get("avg_correctness", 0)
+                        + stats.get("avg_completeness", 0)
+                        + stats.get("avg_risk_surfacing", 0)
+                    )
+                    / 15,
+                    1,
+                ),
                 "avg_output_tokens": stats.get("avg_output_tokens"),
                 "avg_tokens_per_second": stats.get("avg_tokens_per_second"),
             }
         )
     return pd.DataFrame(rows)
+
+
+def build_definitions_df() -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "metric": "Judge correctness",
+                "type": "Claude judge, 1-5",
+                "meaning": "Whether factual claims and recommendations agree with the CRM ground truth.",
+                "scale": "1 = materially false/contradictory; 3 = mixed accuracy; 5 = fully accurate.",
+                "aggregation": "Mean across evaluation queries; higher is better.",
+            },
+            {
+                "metric": "Judge completeness",
+                "type": "Claude judge, 1-5",
+                "meaning": "Whether the response addresses the question and includes the relevant available facts.",
+                "scale": "1 = largely misses the request; 3 = partially answers; 5 = fully addresses it.",
+                "aggregation": "Mean across evaluation queries; higher is better.",
+            },
+            {
+                "metric": "Judge risk surfacing",
+                "type": "Claude judge, 1-5",
+                "meaning": "Whether relevant risks in the ground truth are explicitly named in the response.",
+                "scale": "1 = ignores relevant risks; 3 = mentions some; 5 = surfaces all material risks.",
+                "aggregation": "Mean across evaluation queries; higher is better.",
+            },
+            {
+                "metric": "Judge quality percent",
+                "type": "Derived from Claude judge",
+                "meaning": "The three judge means combined into one normalized directional score.",
+                "scale": "(correctness + completeness + risk surfacing) / 15 * 100.",
+                "aggregation": "Not a new judge opinion; use the three component scores for diagnosis.",
+            },
+            {
+                "metric": "Parsed OK",
+                "type": "Deterministic",
+                "meaning": "Whether the model output could be parsed as the required NextBestAction JSON object.",
+                "scale": "Count of parseable responses out of evaluation queries.",
+                "aggregation": "Higher count and rate are better.",
+            },
+            {
+                "metric": "Guardrail pass",
+                "type": "Deterministic",
+                "meaning": "Whether the parsed response passed the project's post-generation policy checks.",
+                "scale": "Count of responses with zero detected violations; this is not a Claude judge score.",
+                "aggregation": "Higher count and rate are better; inspect violations per query.",
+            },
+            {
+                "metric": "Judge methodology",
+                "type": "Important caveat",
+                "meaning": "Claude judged all variants against the same full CRM ground truth context.",
+                "scale": "Claude is also the teacher family used for KD data, so KD may receive style-family bias.",
+                "aggregation": "Treat judge scores as directional evidence, not independent human ground truth.",
+            },
+        ]
+    )
 
 
 def _autofit_and_wrap(ws, wrap_columns: set[str] = frozenset()) -> None:
@@ -116,6 +188,7 @@ def main() -> None:
 
     per_query_df = build_per_query_df(results)
     aggregate_df = build_aggregate_df(bundle["aggregate_summary"])
+    definitions_df = build_definitions_df()
 
     timestamp = datetime.now().strftime("%Y%m%d-%H%M")
     out_path = PROJECT_ROOT / "results" / f"results-{timestamp}.xlsx"
@@ -123,6 +196,7 @@ def main() -> None:
     with pd.ExcelWriter(out_path, engine="openpyxl") as writer:
         aggregate_df.to_excel(writer, sheet_name="Aggregate Summary", index=False)
         per_query_df.to_excel(writer, sheet_name="Per-Query Results", index=False)
+        definitions_df.to_excel(writer, sheet_name="Metric Definitions", index=False)
 
         tradeoffs_ws = writer.book.create_sheet("Tradeoffs")
         tradeoffs_ws["A1"] = "CRM Small-Model Comparison -- Tradeoffs Report"
@@ -145,6 +219,10 @@ def main() -> None:
 
     wb = load_workbook(out_path)
     _autofit_and_wrap(wb["Aggregate Summary"])
+    _autofit_and_wrap(
+        wb["Metric Definitions"],
+        wrap_columns={"meaning", "scale", "aggregation"},
+    )
     _autofit_and_wrap(
         wb["Per-Query Results"],
         wrap_columns={"query", "guardrail_violations", "judge_rationale", "response_text"},

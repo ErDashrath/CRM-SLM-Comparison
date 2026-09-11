@@ -104,7 +104,9 @@ def judge_response(query: str, account_id: Optional[str], response_text: str, ba
         f"=== Model response ===\n{response_text}\n\n"
         "Score this response now."
     )
-    raw = backend.generate(JUDGE_SYSTEM_PROMPT, user_prompt, max_tokens=300)
+    # 300 tokens can truncate a valid score object when Claude gives a
+    # detailed rationale. Keep enough room for the required JSON to close.
+    raw = backend.generate(JUDGE_SYSTEM_PROMPT, user_prompt, max_tokens=600)
     scores = _extract_json(raw)
     if scores is None or not all(k in scores for k in ("correctness", "completeness", "risk_surfacing")):
         return {

@@ -165,6 +165,7 @@ def run_one_variant(variant_name: str, query: str, account_id: str | None, score
         "tokens_per_second": perf["tokens_per_second"],
         "elapsed_seconds": perf["elapsed_seconds"],
         "retried": perf["retried"],
+        "parse_error": perf["parse_error"],
     }
 
 
@@ -247,7 +248,8 @@ def render_response_card(r: dict) -> None:
             for k, v in action["payload"].items():
                 st.markdown(f"- **{k}:** {v}")
     else:
-        st.warning("Could not parse a structured NextBestAction from this response.")
+        reason = r.get("parse_error") or "unknown reason"
+        st.warning(f"Could not parse a structured NextBestAction from this response: {reason}")
         st.text((r.get("response_text") or "")[:600])
 
     if r.get("think_text"):
