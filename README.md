@@ -2,31 +2,37 @@
 
 ## Prerequisites
 
-- Linux with an NVIDIA GPU for local inference/training, or a Colab T4 for
-      longer-context training.
-- Python 3.14, Git, and access to the existing GPU environment at
-      `/home/dsp-at-magna/Magna/venv-gpu/`.
+- Windows, macOS, or Linux with Python 3.11+ and Git.
+- An NVIDIA GPU is recommended for local inference/training. CPU-only
+  inference is possible with a compatible llama.cpp build; longer-context
+  training can use Google Colab or another GPU provider.
 - An Anthropic API key for Claude teacher generation, Claude-as-judge scoring,
       and the research report. OpenAI can be used as the configured fallback.
 
 ## Installation
 
 ```bash
-cd ~/Magna/CRM-SLM-Comparison
-/home/dsp-at-magna/Magna/venv-gpu/bin/python -m pip install -r requirements.txt
-cp .env.example .env
+cd CRM-SLM-Comparison
+python -m venv .venv
+# Windows PowerShell: .venv\Scripts\Activate.ps1
+# macOS/Linux:        source .venv/bin/activate
+python -m pip install -r requirements.txt
+# macOS/Linux: cp .env.example .env
+# Windows:     Copy-Item .env.example .env
 ```
 
 Set `ANTHROPIC_API_KEY` in `.env`. Keep `.env` local; it is ignored by Git.
 Use `TEACHER_BACKEND=claude` for the intended teacher/judge/report workflow,
-or `TEACHER_BACKEND=openai` for the fallback backend.
+or `TEACHER_BACKEND=openai` for the fallback backend. On Windows PowerShell,
+set the variable with `$env:TEACHER_BACKEND="claude"`; on macOS/Linux, prefix
+commands with `TEACHER_BACKEND=claude`.
 
 ## Quick Verification
 
 ```bash
-/home/dsp-at-magna/Magna/venv-gpu/bin/python -m py_compile \
+python -m py_compile \
       common/*.py data_gen/*.py eval/*.py models/*.py report/*.py training/*.py ui/app.py
-/home/dsp-at-magna/Magna/venv-gpu/bin/python models/inference.py
+python models/inference.py
 ```
 
 The inference smoke test requires the base GGUF referenced by
@@ -37,18 +43,18 @@ and evaluation reports are intentionally kept out of Git.
 
 ```bash
 # Run the local 1.7B QLoRA mechanics smoke test.
-/home/dsp-at-magna/Magna/venv-gpu/bin/python training/train_lora.py \
+python training/train_lora.py \
       --dataset data/kd_train.jsonl \
       --adapter-out adapters/kd-local \
       --max-seq-length 1024
 
 # Evaluate all variants and generate the report workbook.
-TEACHER_BACKEND=claude /home/dsp-at-magna/Magna/venv-gpu/bin/python -m eval.run_eval
-TEACHER_BACKEND=claude /home/dsp-at-magna/Magna/venv-gpu/bin/python -m report.research_agent
-/home/dsp-at-magna/Magna/venv-gpu/bin/python -m report.build_excel
+python -m eval.run_eval
+python -m report.research_agent
+python -m report.build_excel
 
 # Launch the Streamlit comparison UI.
-/home/dsp-at-magna/Magna/venv-gpu/bin/python -m streamlit run ui/app.py --server.port 8502
+python -m streamlit run ui/app.py --server.port 8502
 ```
 
 Local training at short sequence lengths validates the training mechanics.
@@ -61,7 +67,8 @@ weights, adapter outputs, or generated reports.
 A quantitative, modular comparison of three ways to specialize the same ~4B
 open model for CRM tasks: doing nothing (a quantized base model), knowledge
 distillation from a stronger teacher (Claude), and supervised fine-tuning on
-curated CRM data. Standalone project, separate from `~/Magna/SalesIntelligence/`
+curated CRM data. This is a standalone project, separate from the related
+SalesIntelligence project
 (read-only reuse of that project's mock CRM data, guardrails, and training
 approach — see below — but never writes back to it).
 
@@ -84,9 +91,9 @@ methodology holds up when it reaches a non-technical stakeholder.
 
 ## Reused from SalesIntelligence (read-only)
 
-- **Base model**: `~/Magna/SalesIntelligence/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf`
-  (Apache 2.0 — referenced directly, not copied; ~2.4GB, no reason to
-  duplicate it) — see `models/registry.yaml`.
+- **Base model**: the Apache 2.0 Qwen GGUF configured in
+      `models/registry.yaml`; model weights are downloaded locally and are not
+      committed to this repository.
 - **`mock_crm/`**: copied once at setup (4 accounts: Acme Corp, Globex,
   Initech, Delta — Delta is the held-out unseen-generalization test).
 - **Guardrails pattern**: `eval/guardrails.py` ports the deterministic
@@ -98,9 +105,8 @@ methodology holds up when it reaches a non-technical stakeholder.
   `SFTTrainer`) + `liger-kernel` — **not** Unsloth (reproducible
   Unsloth 2026.9.2 + trl 0.24.0 + Python 3.14 bug, plus a standing
   preference against Unsloth regardless).
-- **Training compute**: local T2000 for short-context smoke tests;
-  real training via the already-working `colab-cli` (`--auth=adc`
-  required explicitly).
+- **Training compute**: local GPU or CPU smoke tests; longer-context training
+      can use Google Colab or another compatible GPU provider.
 
 ## Layout
 
@@ -115,7 +121,7 @@ ui/            app.py (Streamlit, reads models/registry.yaml dynamically)
 results/       results-<timestamp>.xlsx, tradeoffs-<timestamp>.md (generated, gitignored)
 ```
 
-Full build plan and rationale: `~/.claude/plans/optimized-hugging-platypus.md`.
+Full build plan and rationale are maintained separately from this repository.
 
 ## Status
 
@@ -135,25 +141,22 @@ Full build plan and rationale: `~/.claude/plans/optimized-hugging-platypus.md`.
       with a per-account ground-truth cheat sheet via `common/cheatsheet.py`)
       still exists and can be run later to replace this with a genuinely
       reviewed set.
-- [x] Phase 3 — training + GGUF merge. Both adapters trained locally on the
-      T2000 with Qwen3-1.7B (switched from 4B — see below) at
+- [x] Phase 3 — training + GGUF merge. Both adapters trained locally on a
+      constrained GPU with Qwen3-1.7B (switched from 4B — see below) at
       `max_seq_length=2575` over LLM-summarized, compacted CRM context
       (`--compact-context-chars 1800`, 100% of examples fully intact, no
       truncated completions — see `common/context_compaction.py` and
       `data_gen/build_context_summaries.py`). Merged against the
       full-precision base and quantized to Q4_K_M via a locally-built
-      `llama-quantize` (llama.cpp cloned to `~/Magna/llama.cpp`, CPU-only
-      build). All 3 variants (`base`/`kd`/`sft`) verified loading and
+      `llama-quantize` from a local llama.cpp build. All 3 variants
+      (`base`/`kd`/`sft`) verified loading and
       generating through `models/inference.py`'s shared registry path.
       **Base model note:** switched from Qwen3-4B to Qwen3-1.7B
-      2026-09-10 — the 4B model OOM'd during training on both the local
-      T2000 and the free-tier Colab T4 (Turing architecture, no fused
-      attention kernel) at every `max_seq_length` tried down to 5120, and
-      neither L4 nor A100 are available on this account's Colab tier.
+      2026-09-10 — the 4B model OOM'd during training on the available
+      constrained GPU environments at the longer sequence lengths tested.
       Qwen3-1.7B is the same family/license (Apache 2.0)/training recipe,
       under half the params — `models/registry.yaml`'s `base` entry now
-      points at a freshly-downloaded `models/Qwen3-1.7B-Q4_K_M.gguf`
-      (not reused from SalesIntelligence, which stays on Qwen3-4B).
+      points at a locally-downloaded `models/Qwen3-1.7B-Q4_K_M.gguf`.
 - [x] Phase 4 — evaluation harness. `data/eval_set.jsonl`: 20 genuinely new
       queries (no overlap with the 58 training queries; Delta is NOT a true
       unseen-account test since Phase 1 trained on all 4 accounts — a
@@ -253,14 +256,12 @@ Full build plan and rationale: `~/.claude/plans/optimized-hugging-platypus.md`.
 ## Setup
 
 ```bash
-/home/dsp-at-magna/Magna/venv-gpu/bin/pip install -r requirements.txt
+python -m pip install -r requirements.txt
 cp .env.example .env   # then fill in ANTHROPIC_API_KEY
 ```
 
-`ANTHROPIC_API_KEY` is now set in this project's `.env` (added 2026-09-10 —
-until then, Phase 1's OpenAI credits were exhausted and no Claude key existed
-anywhere on the machine; the initial 58-query batch was generated via a mix
-of Claude Code sub-agents acting directly as the teacher, no API key needed,
-plus the Anthropic API for the remainder once the key was added). Judge
-(Phase 4) and research agent (Phase 5) both default to `TEACHER_BACKEND=claude`
-via `common/llm_backend.py` now that a key is available.
+Configure `ANTHROPIC_API_KEY` in the local `.env` when using Claude. The
+initial dataset was generated through the teacher pipeline, with the exact
+backend recorded in the project manifests. Judge (Phase 4) and research
+agent (Phase 5) default to `TEACHER_BACKEND=claude` via
+`common/llm_backend.py`; set `TEACHER_BACKEND=openai` for the fallback.

@@ -1,10 +1,8 @@
 # CRM-SLM-Comparison POC - Python dependencies
-# Tested with Python 3.14 in /home/dsp-at-magna/Magna/venv-gpu/
+# Tested with Python 3.14; use a platform-appropriate virtual environment.
 #
-# Installed into the existing GPU venv at /home/dsp-at-magna/Magna/venv-gpu/,
-# which already has llama_cpp_python 0.3.35 built with CUDA support. Install
-# with that venv's pip directly:
-#   /home/dsp-at-magna/Magna/venv-gpu/bin/pip install -r requirements.txt
+# Install these packages inside the activated virtual environment:
+#   python -m pip install -r requirements.txt
 #
 # No RAG layer here (unlike SalesIntelligence) -- this project is about
 # comparing how a model was specialized, not about retrieval, so
