@@ -1,0 +1,9 @@
+{
+  "total_queries": 58,
+  "responses_received": 58,
+  "accepted": 44,
+  "rejected": 14,
+  "unparseable": 0,
+  "teacher_backend": "mixed_batch_outputs (existing sub-agent batches plus Anthropic API continuation)",
+  "human_review_minutes": 0
+}
