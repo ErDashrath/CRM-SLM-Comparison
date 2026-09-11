@@ -360,6 +360,15 @@ if assistant_prompt:
         {"role": "assistant", "content": assistant_result["answer"], "rows": tool_result.get("rows", [])}
     )
 
+    show_comparison_workspace = st.toggle(
+        "Show model comparison workspace",
+        value=False,
+        help="Open the separate base/KD/SFT experiment view. Chat answers stay independent.",
+    )
+    if not show_comparison_workspace:
+        st.caption("Comparison workspace hidden. The assistant chat above is the active CRM experience.")
+        st.stop()
+
 if "results_store" not in st.session_state:
     st.session_state.results_store: dict[tuple, dict] = {}
 
