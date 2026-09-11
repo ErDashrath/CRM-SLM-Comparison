@@ -1,0 +1,41 @@
+{
+  "account_id": "globex",
+  "name": "Globex Logistics",
+  "industry": "Logistics & Supply Chain",
+  "segment": "Enterprise",
+  "region": "India - South",
+  "hq_city": "Chennai, Tamil Nadu",
+  "employees": 1600,
+  "annual_revenue_inr": 620000000,
+  "account_owner": "Priya Iyer",
+  "account_owner_role": "Senior Account Executive, Nimbus Systems",
+  "relationship_start_date": "2024-01-15",
+  "account_health": "healthy",
+  "contacts": [
+    {
+      "name": "Karthik Subramaniam",
+      "role": "Director of Operations",
+      "contact_type": "champion",
+      "email": "karthik.subramaniam@globex.example",
+      "engagement_level": "high",
+      "notes": "Requested the expansion after a strong pilot result. Drives internal consensus-building."
+    },
+    {
+      "name": "Meera Pillai",
+      "role": "CFO",
+      "contact_type": "economic_buyer",
+      "email": "meera.pillai@globex.example",
+      "engagement_level": "high",
+      "notes": "Attended both the solution review and the contract walkthrough personally. Has pre-approved budget for the full scope."
+    },
+    {
+      "name": "Arvind Rao",
+      "role": "Procurement Manager",
+      "contact_type": "procurement",
+      "email": "arvind.rao@globex.example",
+      "engagement_level": "high",
+      "notes": "Standard procurement process, no unusual pricing pressure. Contract redlines are administrative, not commercial."
+    }
+  ],
+  "notes": "Healthy, on-track expansion opportunity following a successful 6-month pilot. Economic buyer (CFO) has been personally engaged throughout, budget is pre-approved, and there is no material competitor presence in the deal. Moving through contract drafting on the originally forecast timeline."
+}

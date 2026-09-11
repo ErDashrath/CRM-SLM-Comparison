@@ -1,0 +1,41 @@
+{
+  "account_id": "delta",
+  "name": "Delta Freight & Warehousing",
+  "industry": "Warehousing & Distribution",
+  "segment": "Enterprise",
+  "region": "India - East",
+  "hq_city": "Kolkata, West Bengal",
+  "employees": 1300,
+  "annual_revenue_inr": 540000000,
+  "account_owner": "Ritu Banerjee",
+  "account_owner_role": "Senior Account Executive, Nimbus Systems",
+  "relationship_start_date": "2025-09-02",
+  "account_health": "at_risk",
+  "contacts": [
+    {
+      "name": "Anil Chatterjee",
+      "role": "Director of Warehouse Operations",
+      "contact_type": "champion",
+      "email": "anil.chatterjee@deltafreight.example",
+      "engagement_level": "high",
+      "notes": "Fully bought in on scope and terms. Has been pushing internally to get the deal closed."
+    },
+    {
+      "name": "Sunita Ghosh",
+      "role": "CFO",
+      "contact_type": "economic_buyer",
+      "email": "sunita.ghosh@deltafreight.example",
+      "engagement_level": "medium",
+      "notes": "Verbally supportive of the deal but has flagged that final sign-off depends on this quarter's capex budget review, which has not yet concluded."
+    },
+    {
+      "name": "Manoj Dutta",
+      "role": "Procurement Lead",
+      "contact_type": "procurement",
+      "email": "manoj.dutta@deltafreight.example",
+      "engagement_level": "high",
+      "notes": "Commercial terms and contract language are fully agreed. Waiting only on internal budget sign-off, not renegotiation."
+    }
+  ],
+  "notes": "Commercial terms are agreed and the champion and procurement are aligned, but the deal is gated on internal CFO/budget-committee sign-off tied to this quarter's capex review cycle. Risk is budget-approval timing, not deal desirability, pricing, or competition."
+}

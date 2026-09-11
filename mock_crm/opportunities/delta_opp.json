@@ -1,0 +1,40 @@
+{
+  "opportunity_id": "opp_delta_001",
+  "account_id": "delta",
+  "name": "Delta Freight & Warehousing - Core Ops Suite + Integration Module",
+  "stage": "Verbal Agreement - Pending Budget Approval",
+  "deal_value_inr": 2900000,
+  "currency": "INR",
+  "created_date": "2026-04-20",
+  "last_activity_date": "2026-08-29",
+  "expected_close_date": "2026-09-30",
+  "win_probability_pct": 65,
+  "line_items": [
+    { "sku": "NIM-CORE", "description": "120 seats @ INR 15,000/seat/year", "amount_inr": 1800000 },
+    { "sku": "NIM-INTEGRATION", "description": "Integration & API Module, 1 deployment", "amount_inr": 400000 },
+    { "sku": "NIM-SUPPORT-STD", "description": "Standard Support, 1 deployment", "amount_inr": 100000 },
+    { "sku": "NIM-TRAINING", "description": "Onboarding & Training Package (one-time)", "amount_inr": 250000 },
+    { "sku": "NIM-ANALYTICS", "description": "Advanced Analytics Add-on, 1 deployment", "amount_inr": 350000 }
+  ],
+  "milestones": {
+    "technical_evaluation_approved": true,
+    "technical_evaluation_approved_date": "2026-07-10",
+    "solution_architecture_approved": true,
+    "solution_architecture_approved_date": "2026-07-10"
+  },
+  "negotiation_band": {
+    "approved_min_discount_pct": 5,
+    "approved_max_discount_pct": 7,
+    "hard_ceiling_discount_pct": 10,
+    "requires_vp_sales_approval_above_pct": 7,
+    "requires_cro_approval_above_pct": 10
+  },
+  "risk_factors": [
+    {
+      "type": "budget_approval_pending",
+      "severity": "medium",
+      "description": "Commercial terms are fully agreed with champion and procurement, but final sign-off is gated on the CFO's capex budget committee review, which has not yet concluded this quarter."
+    }
+  ],
+  "notes": "Champion and procurement are fully aligned and pricing is agreed within the approved band (6% discount, within the 5-7% approved range). The only open item is internal budget-committee sign-off on Delta's side, expected to conclude before the end of the quarter. No renegotiation is expected once budget clears."
+}

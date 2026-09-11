@@ -1,0 +1,54 @@
+{
+  "opportunity_id": "opp_acme_corp_001",
+  "account_id": "acme_corp",
+  "name": "Acme Corp - Core Ops Suite Expansion (200 seats) + Analytics & Integration",
+  "stage": "Commercial Negotiation",
+  "deal_value_inr": 4800000,
+  "currency": "INR",
+  "created_date": "2026-05-14",
+  "last_activity_date": "2026-08-26",
+  "expected_close_date": "2026-09-28",
+  "win_probability_pct": 58,
+  "line_items": [
+    { "sku": "NIM-CORE", "description": "200 seats @ INR 15,000/seat/year", "amount_inr": 3000000 },
+    { "sku": "NIM-ANALYTICS", "description": "Advanced Analytics Add-on, 1 deployment", "amount_inr": 1200000 },
+    { "sku": "NIM-INTEGRATION", "description": "Integration & API Module, 1 deployment", "amount_inr": 400000 },
+    { "sku": "NIM-SUPPORT-PREM", "description": "Premium Support, 1 deployment", "amount_inr": 200000 }
+  ],
+  "milestones": {
+    "technical_evaluation_approved": true,
+    "technical_evaluation_approved_date": "2026-07-30",
+    "solution_architecture_approved": true,
+    "solution_architecture_approved_date": "2026-07-30"
+  },
+  "negotiation_band": {
+    "approved_min_discount_pct": 5,
+    "approved_max_discount_pct": 7,
+    "hard_ceiling_discount_pct": 10,
+    "requires_vp_sales_approval_above_pct": 7,
+    "requires_cro_approval_above_pct": 10
+  },
+  "risk_factors": [
+    {
+      "type": "economic_buyer_disengagement",
+      "severity": "high",
+      "description": "Economic buyer (Ananya Sharma, VP Finance) has not attended either of the last 2 commercial negotiation meetings (2026-08-12, 2026-08-25)."
+    },
+    {
+      "type": "competitive_threat",
+      "severity": "high",
+      "description": "Competitor XYZ has submitted a lower-priced alternative proposal; procurement is actively using it as negotiation leverage."
+    },
+    {
+      "type": "pricing_pressure",
+      "severity": "high",
+      "description": "Procurement (Vikram Nair) is requesting a 12% discount, above the approved 5-7% negotiation band and above the 10% hard ceiling."
+    },
+    {
+      "type": "response_lag",
+      "severity": "medium",
+      "description": "No commercial response from Acme since the 2026-08-26 discount request email; 9 days elapsed as of 2026-09-04 with the account owner's reply still pending internal guidance."
+    }
+  ],
+  "notes": "Technical evaluation and solution architecture are fully approved with no open objections — this is a commercial-stage deal, not a product-fit problem. Procurement is pushing hard on price and citing competitor XYZ's lower quote, but the economic buyer has gone quiet at exactly the moment commercial terms are being negotiated, which is the bigger structural risk: without her back at the table, any discount approved by procurement alone may not actually secure sign-off. System-calculated win probability is 58%, reflecting the combination of strong technical fit against real commercial and engagement risk. Approved negotiation band is 5-7%, hard ceiling 10% — the 12% ask exceeds both."
+}

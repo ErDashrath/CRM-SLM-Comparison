@@ -1,0 +1,34 @@
+{
+  "opportunity_id": "opp_globex_001",
+  "account_id": "globex",
+  "name": "Globex Logistics - Core Ops Suite Full Rollout (post-pilot expansion)",
+  "stage": "Contract Drafting",
+  "deal_value_inr": 3650000,
+  "currency": "INR",
+  "created_date": "2026-06-01",
+  "last_activity_date": "2026-09-02",
+  "expected_close_date": "2026-09-18",
+  "win_probability_pct": 82,
+  "line_items": [
+    { "sku": "NIM-CORE", "description": "150 seats @ INR 15,000/seat/year", "amount_inr": 2250000 },
+    { "sku": "NIM-INTEGRATION", "description": "Integration & API Module, 1 deployment", "amount_inr": 400000 },
+    { "sku": "NIM-SUPPORT-STD", "description": "Standard Support, 1 deployment", "amount_inr": 100000 },
+    { "sku": "NIM-TRAINING", "description": "Onboarding & Training Package (one-time)", "amount_inr": 250000 },
+    { "sku": "NIM-ANALYTICS", "description": "Advanced Analytics Add-on, 1 deployment", "amount_inr": 650000 }
+  ],
+  "milestones": {
+    "technical_evaluation_approved": true,
+    "technical_evaluation_approved_date": "2026-08-08",
+    "solution_architecture_approved": true,
+    "solution_architecture_approved_date": "2026-08-08"
+  },
+  "negotiation_band": {
+    "approved_min_discount_pct": 5,
+    "approved_max_discount_pct": 7,
+    "hard_ceiling_discount_pct": 10,
+    "requires_vp_sales_approval_above_pct": 7,
+    "requires_cro_approval_above_pct": 10
+  },
+  "risk_factors": [],
+  "notes": "Expansion opportunity following a successful 6-month pilot. Economic buyer (CFO Meera Pillai) is personally engaged and budget is pre-approved. No competitor is active in the deal. Currently in contract drafting with only administrative redlines outstanding; on track for its original forecast close date. No risk factors identified."
+}

@@ -1,0 +1,41 @@
+{
+  "account_id": "acme_corp",
+  "name": "Acme Corp",
+  "industry": "Industrial Manufacturing",
+  "segment": "Enterprise",
+  "region": "India - West",
+  "hq_city": "Pune, Maharashtra",
+  "employees": 2400,
+  "annual_revenue_inr": 850000000,
+  "account_owner": "Sanjay Kulkarni",
+  "account_owner_role": "Senior Account Executive, Nimbus Systems",
+  "relationship_start_date": "2023-04-10",
+  "account_health": "at_risk",
+  "contacts": [
+    {
+      "name": "Rajesh Mehta",
+      "role": "IT Director",
+      "contact_type": "champion",
+      "email": "rajesh.mehta@acmecorp.example",
+      "engagement_level": "high",
+      "notes": "Primary day-to-day contact. Sponsored the technical evaluation and has been consistently responsive."
+    },
+    {
+      "name": "Ananya Sharma",
+      "role": "VP Finance (CFO's direct report, deal sign-off authority)",
+      "contact_type": "economic_buyer",
+      "email": "ananya.sharma@acmecorp.example",
+      "engagement_level": "low_recent",
+      "notes": "Was engaged during discovery and technical evaluation. Has sent regrets and skipped the last 2 commercial-stage meetings (2026-08-12 and 2026-08-25). No direct commercial engagement since technical sign-off."
+    },
+    {
+      "name": "Vikram Nair",
+      "role": "Head of Procurement",
+      "contact_type": "procurement",
+      "email": "vikram.nair@acmecorp.example",
+      "engagement_level": "high",
+      "notes": "Leading commercial negotiation on Acme's side. Pushing for a 12% discount, citing a competing proposal from XYZ."
+    }
+  ],
+  "notes": "Long-standing manufacturing client evaluating an expansion of the Nimbus Core Ops Suite deployment plus Analytics and Integration add-ons. Technical evaluation and solution architecture were approved without objection. Deal has stalled in commercial negotiation: procurement is pushing for a discount above the approved band, a competitor (XYZ) has entered with a lower-priced alternative, and the economic buyer has not attended either of the last two negotiation meetings."
+}

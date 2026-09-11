@@ -1,0 +1,41 @@
+{
+  "account_id": "initech",
+  "name": "Initech Solutions",
+  "industry": "Business Process Outsourcing",
+  "segment": "Mid-Market",
+  "region": "India - North",
+  "hq_city": "Gurugram, Haryana",
+  "employees": 900,
+  "annual_revenue_inr": 310000000,
+  "account_owner": "Deepak Verma",
+  "account_owner_role": "Account Executive, Nimbus Systems",
+  "relationship_start_date": "2026-05-20",
+  "account_health": "at_risk",
+  "contacts": [
+    {
+      "name": "Neha Kapoor",
+      "role": "Operations Manager",
+      "contact_type": "champion",
+      "email": "neha.kapoor@initech.example",
+      "engagement_level": "unresponsive_recent",
+      "notes": "Enthusiastic during the initial demo but has gone silent since. Has not replied to two follow-up emails."
+    },
+    {
+      "name": "Suresh Bhatia",
+      "role": "VP Operations",
+      "contact_type": "economic_buyer",
+      "email": "suresh.bhatia@initech.example",
+      "engagement_level": "unengaged",
+      "notes": "Never directly engaged beyond being copied on the initial demo invite. No independent contact established."
+    },
+    {
+      "name": "Not yet identified",
+      "role": "Procurement",
+      "contact_type": "procurement",
+      "email": null,
+      "engagement_level": "none",
+      "notes": "No procurement contact has entered the deal yet; discussions never reached a commercial stage."
+    }
+  ],
+  "notes": "Deal has stalled after a positive initial product demo. There has been no substantive activity or reply from Initech in over 30 days, and no next meeting is on the calendar. Unlike Acme, this is not a pricing or competitor problem — there is simply no active engagement to work with, and the account is at risk of going cold."
+}

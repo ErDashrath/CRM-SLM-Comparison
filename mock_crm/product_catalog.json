@@ -1,0 +1,61 @@
+{
+  "vendor_name": "Nimbus Systems",
+  "catalog_version": "2026.1",
+  "currency": "INR",
+  "products": [
+    {
+      "sku": "NIM-CORE",
+      "name": "Nimbus Core Ops Suite",
+      "category": "Platform License",
+      "description": "Base enterprise operations platform: order management, inventory visibility, and workflow automation. Priced per named seat, per year.",
+      "pricing_model": "per_seat_per_year",
+      "list_price": 15000,
+      "unit": "seat/year"
+    },
+    {
+      "sku": "NIM-ANALYTICS",
+      "name": "Nimbus Advanced Analytics Add-on",
+      "category": "Add-on Module",
+      "description": "Predictive analytics, custom dashboards, and executive reporting layer on top of Core Ops Suite. Flat annual fee per deployment.",
+      "pricing_model": "flat_annual",
+      "list_price": 1200000,
+      "unit": "deployment/year"
+    },
+    {
+      "sku": "NIM-INTEGRATION",
+      "name": "Nimbus Integration & API Module",
+      "category": "Add-on Module",
+      "description": "Pre-built connectors and open API access for ERP, SCM, and third-party system integration.",
+      "pricing_model": "flat_annual",
+      "list_price": 400000,
+      "unit": "deployment/year"
+    },
+    {
+      "sku": "NIM-SUPPORT-STD",
+      "name": "Standard Support",
+      "category": "Support Tier",
+      "description": "Business-hours support, 24-hour response SLA, quarterly business reviews.",
+      "pricing_model": "flat_annual",
+      "list_price": 100000,
+      "unit": "deployment/year"
+    },
+    {
+      "sku": "NIM-SUPPORT-PREM",
+      "name": "Premium Support",
+      "category": "Support Tier",
+      "description": "24x7 support, 4-hour response SLA, dedicated customer success manager, monthly business reviews.",
+      "pricing_model": "flat_annual",
+      "list_price": 200000,
+      "unit": "deployment/year"
+    },
+    {
+      "sku": "NIM-TRAINING",
+      "name": "Onboarding & Training Package",
+      "category": "Services",
+      "description": "One-time implementation training package: admin certification, end-user workshops, and rollout playbook.",
+      "pricing_model": "one_time",
+      "list_price": 250000,
+      "unit": "one_time"
+    }
+  ]
+}
