@@ -331,7 +331,9 @@ if assistant_prompt:
         st.write(assistant_prompt)
     with st.chat_message("assistant"):
         with st.status("Searching CRM", type="step"):
-            assistant_result = answer_crm_question(assistant_prompt, account_id=account_id)
+            # The assistant chat is intentionally portfolio-scoped. The
+            # comparison controls below have their own account selector.
+            assistant_result = answer_crm_question(assistant_prompt, account_id=None)
             tool_result = assistant_result["tool_result"]
             snapshot = database_snapshot()
         st.write(assistant_result["answer"])
@@ -345,7 +347,10 @@ if assistant_prompt:
                         f"({record.get('score', 0):.2f})"
                     )
         if tool_result["status"] == "needs_clarification":
-            st.info("Available structured entities: " + ", ".join(tool_result["available_entities"]))
+            st.info(
+                "This answer came from the CRM schema tool; no model variant was run. "
+                "Available structured entities: " + ", ".join(tool_result["available_entities"])
+            )
         st.caption(
             f"Tool: {tool_result['tool']} · source: local CRM database · "
             f"{snapshot['accounts']} accounts, {snapshot['opportunities']} opportunities · "
@@ -424,7 +429,11 @@ if run_cols[-1].button("Run all variants", type="primary", width="stretch"):
 # --- Results: grouped by (account, query), variants shown side by side -----
 
 st.divider()
-st.subheader("Results")
+st.subheader("Model comparison results")
+st.caption(
+    "These are saved results from explicitly running base, KD, or SFT. "
+    "They are separate from the CRM assistant chat above and do not answer the latest chat question."
+)
 
 if st.session_state.results_store:
     if st.button("Clear all results"):
