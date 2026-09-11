@@ -1,4 +1,5 @@
 # CRM-SLM-Comparison POC - Python dependencies
+# Tested with Python 3.14 in /home/dsp-at-magna/Magna/venv-gpu/
 #
 # Installed into the existing GPU venv at /home/dsp-at-magna/Magna/venv-gpu/,
 # which already has llama_cpp_python 0.3.35 built with CUDA support. Install
@@ -9,13 +10,14 @@
 # comparing how a model was specialized, not about retrieval, so
 # chromadb/sentence-transformers are intentionally not listed.
 
-# --- Phase 0 (models/) ---
-pyyaml==6.0.3                  # models/registry.yaml parsing
+# --- Core configuration and schemas ---
+pydantic==2.12.5              # NextBestAction validation and repair
+pyyaml==6.0.3                 # registry and system-prompt parsing
+python-dotenv==1.2.3          # local .env loading
 
 # --- Phase 1/4/5 (data_gen/, eval/judge.py, report/research_agent.py) ---
-anthropic==1.3.0               # Claude teacher, judge, and research agent
-openai>=1.0.0                  # optional fallback teacher/judge backend
-python-dotenv==1.2.3           # load ANTHROPIC_API_KEY / OPENAI_API_KEY from a local .env
+anthropic==1.3.0              # Claude teacher, judge, and research agent
+openai>=1.0.0                 # optional fallback teacher/judge backend
 
 # --- Phase 3 (training/) -- QLoRA fine-tuning stack ---
 # Same stack as SalesIntelligence's llm/sft/train_lora.py, and deliberately
@@ -32,14 +34,22 @@ liger-kernel==0.8.2
 huggingface_hub==1.30.0        # `hf download` for base model / GGUF conversion tooling if needed
 
 # --- Phase 4 (eval/perf.py) ---
-pynvml==11.5.3                 # nvidia-smi-equivalent VRAM sampling from Python
+pynvml==11.5.3                # NVIDIA VRAM sampling from Python
 
 # --- Phase 5 (report/) ---
-pandas==2.3.3
-openpyxl==3.1.5
+pandas==2.3.3                 # report tables and Excel source frames
+openpyxl==3.1.5               # workbook creation and formatting
 
 # --- Phase 6 (ui/) ---
-streamlit==1.63.0               # matches SalesIntelligence's hitl_ui/app.py convention
+streamlit==1.63.0             # comparison UI and Dataset Browser
+
+# --- Local inference ---
+llama-cpp-python==0.3.35      # CUDA-enabled GGUF inference wrapper
+
+# --- Training and dataset processing ---
+torch>=2.11.0                 # CUDA training runtime; install the CUDA build
+transformers>=5.0.0           # model/tokenizer loading
+datasets>=4.0.0               # Dataset construction for SFTTrainer
 
 # --- testing ---
 pytest==9.1.1
