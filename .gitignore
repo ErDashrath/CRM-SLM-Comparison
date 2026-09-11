@@ -49,5 +49,7 @@ report/*.md
 .DS_Store
 Thumbs.db
 .vscode/
+.agents/
+.claude/
 *.swp
 *.swo
