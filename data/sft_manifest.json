@@ -1,0 +1,29 @@
+{
+  "total_available": 44,
+  "total_selected": 31,
+  "fraction_per_account": 0.65,
+  "breakdown_by_account": {
+    "acme_corp": {
+      "available": 6,
+      "selected": 4
+    },
+    "delta": {
+      "available": 13,
+      "selected": 9
+    },
+    "globex": {
+      "available": 11,
+      "selected": 8
+    },
+    "initech": {
+      "available": 13,
+      "selected": 9
+    },
+    "portfolio": {
+      "available": 1,
+      "selected": 1
+    }
+  },
+  "selection_method": "automated_stratified_by_account_top_confidence",
+  "human_review_minutes": 0
+}
