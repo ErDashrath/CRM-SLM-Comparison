@@ -1,0 +1,50 @@
+# Model registry — the single place that defines what "base", "kd", and "sft"
+# mean. Every other component (eval harness, UI) resolves a variant name
+# through this file via models/inference.py's load() — never hardcodes a
+# GGUF path directly. Add a 4th variant by adding an entry here; nothing
+# else in the codebase needs to change.
+#
+# gguf_path for "kd" and "sft" doesn't exist yet — Phase 3 (training +
+# merge_and_quantize.sh) fills it in. Until then, load("kd") / load("sft")
+# will raise FileNotFoundError with a clear message (see inference.py).
+
+variants:
+  base:
+    label: "Base (no fine-tuning)"
+    # Switched from Qwen3-4B to Qwen3-1.7B 2026-09-10 -- the 4B model OOM'd
+    # during training on the free-tier Colab T4 (Turing architecture, no
+    # fused/flash attention kernel) at every max_seq_length tried down to
+    # 5120, and neither L4 nor A100 are available on this account's tier.
+    # Qwen3-1.7B is the same family/license (Apache 2.0)/training recipe,
+    # under half the params, downloaded fresh into this project's own
+    # models/ (not reused from SalesIntelligence, which stays on Qwen3-4B).
+    gguf_path: "models/Qwen3-1.7B-Q4_K_M.gguf"
+    adapter_source: null
+    training_data_count: 0
+    human_review_minutes: 0
+
+  kd:
+    label: "Knowledge-Distilled (Claude teacher demonstrations)"
+    gguf_path: "adapters/kd/merged-Q4_K_M.gguf"   # produced by training/merge_and_quantize.sh
+    adapter_source: "data/kd_train.jsonl"
+    training_data_count: null   # filled in by data_gen/generate_teacher_drafts.py's manifest
+    human_review_minutes: 0
+
+  sft:
+    label: "Fine-Tuned (curated CRM examples)"
+    gguf_path: "adapters/sft/merged-Q4_K_M.gguf"  # produced by training/merge_and_quantize.sh
+    adapter_source: "data/sft_train.jsonl"
+    training_data_count: null   # filled in by data_gen/curate_sft_subset.py's manifest
+    human_review_minutes: null  # filled in by data_gen/curate_sft_subset.py's manifest
+
+# Shared inference settings — same n_ctx/quantize_kv rationale as
+# SalesIntelligence's llm/provider.py::LocalLlamaCppBackend docstring
+# (empirically the safe value on this machine's 4GB Quadro T2000 for real
+# ~4200-token prompts). All three variants use identical settings so the
+# perf comparison (eval/perf.py) isolates "what was trained in," not
+# "what inference settings ran."
+inference:
+  n_ctx: 5120
+  n_gpu_layers: -1
+  quantize_kv: true
+  offload_kqv: true
