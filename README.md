@@ -1,3 +1,61 @@
+# Setup Guide
+
+## Prerequisites
+
+- Linux with an NVIDIA GPU for local inference/training, or a Colab T4 for
+      longer-context training.
+- Python 3.14, Git, and access to the existing GPU environment at
+      `/home/dsp-at-magna/Magna/venv-gpu/`.
+- An Anthropic API key for Claude teacher generation, Claude-as-judge scoring,
+      and the research report. OpenAI can be used as the configured fallback.
+
+## Installation
+
+```bash
+cd ~/Magna/CRM-SLM-Comparison
+/home/dsp-at-magna/Magna/venv-gpu/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+```
+
+Set `ANTHROPIC_API_KEY` in `.env`. Keep `.env` local; it is ignored by Git.
+Use `TEACHER_BACKEND=claude` for the intended teacher/judge/report workflow,
+or `TEACHER_BACKEND=openai` for the fallback backend.
+
+## Quick Verification
+
+```bash
+/home/dsp-at-magna/Magna/venv-gpu/bin/python -m py_compile \
+      common/*.py data_gen/*.py eval/*.py models/*.py report/*.py training/*.py ui/app.py
+/home/dsp-at-magna/Magna/venv-gpu/bin/python models/inference.py
+```
+
+The inference smoke test requires the base GGUF referenced by
+`models/registry.yaml`. Generated adapters, merged GGUF files, model caches,
+and evaluation reports are intentionally kept out of Git.
+
+## Main Workflows
+
+```bash
+# Run the local 1.7B QLoRA mechanics smoke test.
+/home/dsp-at-magna/Magna/venv-gpu/bin/python training/train_lora.py \
+      --dataset data/kd_train.jsonl \
+      --adapter-out adapters/kd-local \
+      --max-seq-length 1024
+
+# Evaluate all variants and generate the report workbook.
+TEACHER_BACKEND=claude /home/dsp-at-magna/Magna/venv-gpu/bin/python -m eval.run_eval
+TEACHER_BACKEND=claude /home/dsp-at-magna/Magna/venv-gpu/bin/python -m report.research_agent
+/home/dsp-at-magna/Magna/venv-gpu/bin/python -m report.build_excel
+
+# Launch the Streamlit comparison UI.
+/home/dsp-at-magna/Magna/venv-gpu/bin/python -m streamlit run ui/app.py --server.port 8502
+```
+
+Local training at short sequence lengths validates the training mechanics.
+For complete CRM contexts, use the Colab workflow in `training/` or enable
+the compact-context pipeline before training. Do not commit API keys, model
+weights, adapter outputs, or generated reports.
+
 # CRM Small-Model Comparison POC
 
 A quantitative, modular comparison of three ways to specialize the same ~4B
@@ -169,7 +227,28 @@ Full build plan and rationale: `~/.claude/plans/optimized-hugging-platypus.md`.
       function verified working end-to-end with a real generation +
       guardrail check — **not** visually verified in a browser (no browser
       tool available this session); run it yourself at
-      `http://localhost:8501` to confirm the UI itself renders correctly.
+      `http://localhost:8502` to confirm the UI itself renders correctly.
+      Since Phase 6 shipped: added an example-query picker, a persistent
+      per-(account,query,variant) results store so runs don't overwrite
+      each other, a guardrail-explainer tooltip, and a Dataset Browser
+      page (`ui/pages/`) for reading the full mock CRM in a presentable
+      form. **Parse-robustness, two rounds** (found via real use, not
+      hypothetical): round 1 added a retry-on-unparseable path (base
+      sometimes burns its whole token budget on `<think>` reasoning before
+      reaching JSON); round 2 (same day) found that retry alone wasn't
+      enough — kd/sft also hit unparseable responses, and
+      `parse_next_best_action` was swallowing every validation failure
+      into a blind `None` with no visibility into *why*. Fixed properly:
+      `common/formatting.py` now has a deterministic repair pass for
+      common schema mismatches (bad `action_type` spelling, confidence as
+      a percentage string, payload as a string instead of an object,
+      risk_flags as a bare string) that succeeds WITHOUT needing a second
+      model call at all — tested against 9 synthetic malformation cases,
+      7 auto-repair cleanly; the 2 genuinely unrepairable ones (no JSON at
+      all, missing a truly required field) now surface the *specific*
+      pydantic validation error instead of a generic "could not parse",
+      both to the retry prompt (so the model is told exactly what was
+      wrong) and to the UI.
 
 ## Setup
 
