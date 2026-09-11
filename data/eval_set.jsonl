@@ -1,0 +1,20 @@
+{"query": "My VP wants to know if Acme Corp will close this quarter -- what do I tell her?", "account_id": "acme_corp"}
+{"query": "Acme Corp's procurement team keeps citing a competitor -- do we actually know anything concrete about that competitor's offer?", "account_id": "acme_corp"}
+{"query": "If I don't hear back from Acme Corp's economic buyer by next week, what should I do?", "account_id": "acme_corp"}
+{"query": "Draft a note for the deal-review meeting summarizing where Acme Corp actually stands.", "account_id": "acme_corp"}
+{"query": "Is there a discount I can offer Acme Corp today without getting anyone else involved?", "account_id": "acme_corp"}
+{"query": "Globex looks like a clean deal on paper -- is there anything in the numbers that doesn't quite add up?", "account_id": "globex"}
+{"query": "What's my case for closing Globex on time if my manager asks?", "account_id": "globex"}
+{"query": "Does the Globex contract need any sign-off before it goes out?", "account_id": "globex"}
+{"query": "Who at Globex should I loop in if there's a delay on our side?", "account_id": "globex"}
+{"query": "Initech hasn't responded in weeks -- is this deal basically dead, or worth one more push?", "account_id": "initech"}
+{"query": "What would actually get Initech's economic buyer to engage?", "account_id": "initech"}
+{"query": "Should Initech even stay in this quarter's forecast?", "account_id": "initech"}
+{"query": "What's the single biggest blocker on the Initech account right now?", "account_id": "initech"}
+{"query": "Delta's budget committee is the holdup -- what's our realistic path to close?", "account_id": "delta"}
+{"query": "Is Delta at risk of slipping to next quarter?", "account_id": "delta"}
+{"query": "Who owns the next step on Delta, us or them?", "account_id": "delta"}
+{"query": "Give me a one-line status on Delta I can paste into a forecast spreadsheet.", "account_id": "delta"}
+{"query": "Across my whole pipeline, which deal needs my attention first thing tomorrow morning?", "account_id": null}
+{"query": "If I could only save one deal from slipping this quarter, which one and why?", "account_id": null}
+{"query": "Are there any accounts where the economic buyer has gone quiet?", "account_id": null}
