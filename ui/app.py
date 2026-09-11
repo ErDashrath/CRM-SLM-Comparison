@@ -54,6 +54,8 @@ import streamlit as st
 
 from common.context import assemble_context, list_account_ids
 from common.context_compaction import compact_formatted_context
+from common.crm_assistant import answer_crm_question
+from common.crm_store import database_snapshot
 from common.formatting import build_user_prompt, format_context, format_evidence_context, load_system_prompt, parse_next_best_action
 from eval import guardrails
 from eval.judge import judge_response
@@ -303,6 +305,55 @@ st.caption(
     "knowledge distillation, and supervised fine-tuning. Run each variant independently -- "
     "results stick around so you can build up a comparison across queries and variants."
 )
+
+# --- Tool-backed CRM chat -------------------------------------------------
+
+st.subheader("CRM assistant")
+st.caption(
+    "Ask about structured CRM data first. The assistant uses read-only tools "
+    "for counts, pipeline, account summaries, and risk views; it asks for "
+    "scope when the current schema cannot answer safely."
+)
+
+if "assistant_messages" not in st.session_state:
+    st.session_state.assistant_messages = []
+
+for message in st.session_state.assistant_messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+        if message.get("rows"):
+            st.dataframe(message["rows"], width="stretch", hide_index=True)
+
+assistant_prompt = st.chat_input("Ask about accounts, opportunities, pipeline, risks, or contacts")
+if assistant_prompt:
+    st.session_state.assistant_messages.append({"role": "user", "content": assistant_prompt})
+    with st.chat_message("user"):
+        st.write(assistant_prompt)
+    with st.chat_message("assistant"):
+        with st.status("Searching CRM", type="step"):
+            assistant_result = answer_crm_question(assistant_prompt, account_id=account_id)
+            tool_result = assistant_result["tool_result"]
+            snapshot = database_snapshot()
+        st.write(assistant_result["answer"])
+        if tool_result.get("rows"):
+            st.dataframe(tool_result["rows"], width="stretch", hide_index=True)
+        if assistant_result["retrieved"]:
+            with st.expander("Retrieved CRM evidence", expanded=False):
+                for record in assistant_result["retrieved"]:
+                    st.markdown(
+                        f"**{record['source_type']} · {record.get('title', '')}** "
+                        f"({record.get('score', 0):.2f})"
+                    )
+        if tool_result["status"] == "needs_clarification":
+            st.info("Available structured entities: " + ", ".join(tool_result["available_entities"]))
+        st.caption(
+            f"Tool: {tool_result['tool']} · source: local CRM database · "
+            f"{snapshot['accounts']} accounts, {snapshot['opportunities']} opportunities · "
+            f"retrieved: {len(assistant_result['retrieved'])} records"
+        )
+    st.session_state.assistant_messages.append(
+        {"role": "assistant", "content": assistant_result["answer"], "rows": tool_result.get("rows", [])}
+    )
 
 if "results_store" not in st.session_state:
     st.session_state.results_store: dict[tuple, dict] = {}

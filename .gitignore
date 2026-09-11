@@ -39,6 +39,7 @@ data/.sft_curation_progress.json
 data/context_summaries.json
 data/*_compacted.jsonl
 data/kd_batch_output/
+data/*.sqlite3
 
 # Generated evaluation/report outputs
 results/*

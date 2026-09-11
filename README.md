@@ -62,6 +62,27 @@ For complete CRM contexts, use the Colab workflow in `training/` or enable
 the compact-context pipeline before training. Do not commit API keys, model
 weights, adapter outputs, or generated reports.
 
+## CRM assistant architecture
+
+The Streamlit app also includes a normal chat assistant backed by a structured,
+read-only CRM layer:
+
+1. `common/crm_store.py` normalizes the mock CRM fixtures into a local SQLite
+      database containing accounts, opportunities, contacts, and activities.
+2. `common/crm_tools.py` answers exact questions such as account/opportunity
+      counts, pipeline summaries, account status, and portfolio risks with bounded
+      SQL tools.
+3. `common/crm_retrieval.py` performs local hybrid retrieval over CRM records
+      using BM25-style lexical scoring plus entity and document-type reranking.
+4. `common/crm_assistant.py` passes the structured tool result and retrieved
+      evidence to the local model for grounded synthesis.
+
+The assistant never invents an entity that is absent from the schema. For
+example, a question about leads receives a clarification because this sample
+CRM contains no leads table. A production deployment can replace the SQLite
+source with the company's CRM/ERP connector while keeping the same tool and
+retrieval contracts.
+
 # CRM Small-Model Comparison POC
 
 A quantitative, modular comparison of three ways to specialize the same ~4B
