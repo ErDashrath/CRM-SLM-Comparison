@@ -1,0 +1,187 @@
+# CRM Small-Model Comparison POC
+
+A quantitative, modular comparison of three ways to specialize the same ~4B
+open model for CRM tasks: doing nothing (a quantized base model), knowledge
+distillation from a stronger teacher (Claude), and supervised fine-tuning on
+curated CRM data. Standalone project, separate from `~/Magna/SalesIntelligence/`
+(read-only reuse of that project's mock CRM data, guardrails, and training
+approach — see below — but never writes back to it).
+
+## The three variants
+
+All three share the exact same base model, so the comparison isolates *how
+it was specialized*, not *which base model*:
+
+| Variant | Training data | Volume | Human review |
+|---|---|---|---|
+| **base** | none | — | — |
+| **kd** | Claude-generated CRM demonstrations, guardrail-filtered only | ~120-150 | none |
+| **sft** | curated subset of the same draft pool, corrected/verified | ~50-60 | full |
+
+**Terminology note:** this is "distillation via teacher-generated
+demonstrations" (Alpaca/Vicuna-style), not logit-level knowledge
+distillation — there's no logprob access to Claude at that granularity
+through the API. The final tradeoffs report is explicit about this so the
+methodology holds up when it reaches a non-technical stakeholder.
+
+## Reused from SalesIntelligence (read-only)
+
+- **Base model**: `~/Magna/SalesIntelligence/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf`
+  (Apache 2.0 — referenced directly, not copied; ~2.4GB, no reason to
+  duplicate it) — see `models/registry.yaml`.
+- **`mock_crm/`**: copied once at setup (4 accounts: Acme Corp, Globex,
+  Initech, Delta — Delta is the held-out unseen-generalization test).
+- **Guardrails pattern**: `eval/guardrails.py` ports the deterministic
+  discount-ceiling / economic-buyer / competitor-threat checks from
+  `llm/guardrails.py`, including its three already-fixed bugs (the
+  `competitive` regex miss, the global-playbook false-positive, and
+  negation blindness).
+- **Training stack**: plain `peft` + `bitsandbytes` + `trl` (unpatched
+  `SFTTrainer`) + `liger-kernel` — **not** Unsloth (reproducible
+  Unsloth 2026.9.2 + trl 0.24.0 + Python 3.14 bug, plus a standing
+  preference against Unsloth regardless).
+- **Training compute**: local T2000 for short-context smoke tests;
+  real training via the already-working `colab-cli` (`--auth=adc`
+  required explicitly).
+
+## Layout
+
+```
+models/        registry.yaml (the modularity lever) + inference.py (registry -> loaded model)
+data_gen/      teacher draft generation (KD) + curation CLI (SFT)
+data/          kd_train.jsonl, sft_train.jsonl, eval_set.jsonl
+training/      train_lora.py (parameterized), merge_and_quantize.sh, colab_train.ipynb
+eval/          guardrails.py, judge.py, perf.py, run_eval.py
+report/        build_excel.py, research_agent.py
+ui/            app.py (Streamlit, reads models/registry.yaml dynamically)
+results/       results-<timestamp>.xlsx, tradeoffs-<timestamp>.md (generated, gitignored)
+```
+
+Full build plan and rationale: `~/.claude/plans/optimized-hugging-platypus.md`.
+
+## Status
+
+- [x] Phase 0 — scaffold, model registry, inference wrapper
+- [x] Phase 1 — teacher data generation (KD track). `data/kd_train.jsonl`: 44 accepted,
+      `data/kd_rejected.jsonl`: 14 guardrail-rejected, 0 unparseable, out of 58 queries.
+      Generated via a mix of Claude Code sub-agents (no API key needed) and the Anthropic
+      API (once `ANTHROPIC_API_KEY` was added) — see `data/kd_manifest.json`.
+- [x] Phase 2 — SFT subset. **Automated, not human-reviewed** (the user opted
+      to skip manual review) — `data_gen/auto_curate_sft.py` stratifies by
+      account and keeps the top 65% by confidence per account (not a global
+      top-N, which would have skewed almost entirely toward Delta's easy,
+      high-confidence scenarios and excluded Acme's harder multi-risk ones).
+      31/44 selected, `human_review_minutes: 0` — labeled honestly in
+      `data/sft_manifest.json`, not claimed as curation the project didn't
+      pay for. `data_gen/curate_sft_subset.py` (the real human-review CLI,
+      with a per-account ground-truth cheat sheet via `common/cheatsheet.py`)
+      still exists and can be run later to replace this with a genuinely
+      reviewed set.
+- [x] Phase 3 — training + GGUF merge. Both adapters trained locally on the
+      T2000 with Qwen3-1.7B (switched from 4B — see below) at
+      `max_seq_length=2575` over LLM-summarized, compacted CRM context
+      (`--compact-context-chars 1800`, 100% of examples fully intact, no
+      truncated completions — see `common/context_compaction.py` and
+      `data_gen/build_context_summaries.py`). Merged against the
+      full-precision base and quantized to Q4_K_M via a locally-built
+      `llama-quantize` (llama.cpp cloned to `~/Magna/llama.cpp`, CPU-only
+      build). All 3 variants (`base`/`kd`/`sft`) verified loading and
+      generating through `models/inference.py`'s shared registry path.
+      **Base model note:** switched from Qwen3-4B to Qwen3-1.7B
+      2026-09-10 — the 4B model OOM'd during training on both the local
+      T2000 and the free-tier Colab T4 (Turing architecture, no fused
+      attention kernel) at every `max_seq_length` tried down to 5120, and
+      neither L4 nor A100 are available on this account's Colab tier.
+      Qwen3-1.7B is the same family/license (Apache 2.0)/training recipe,
+      under half the params — `models/registry.yaml`'s `base` entry now
+      points at a freshly-downloaded `models/Qwen3-1.7B-Q4_K_M.gguf`
+      (not reused from SalesIntelligence, which stays on Qwen3-4B).
+- [x] Phase 4 — evaluation harness. `data/eval_set.jsonl`: 20 genuinely new
+      queries (no overlap with the 58 training queries; Delta is NOT a true
+      unseen-account test since Phase 1 trained on all 4 accounts — a
+      deviation from the original plan, noted). Ran all 3 variants x 20
+      queries = 60 generations, each guardrail-checked, Claude-judged
+      (correctness/completeness/risk_surfacing 1-5), and perf-measured
+      (tokens/sec, VRAM). Results: `results/eval_results.json`. **Real bug
+      found and fixed 2026-09-10**: first run used `max_tokens=700`, which
+      the more verbose kd/sft variants hit far more often than base (2 vs
+      5 vs 8 truncations) — this alone explained an apparent "fine-tuning
+      made JSON parsing worse" pattern that was actually just a token-budget
+      artifact. Re-ran at `max_tokens=1200`; buggy run kept at
+      `results/eval_results_v1_buggy_700tok.json` for reference, not used
+      in the report. **Corrected finding**: sft beats both base and kd on
+      every judge dimension (3.25/2.80/3.75 vs base's 3.15/2.65/3.60 vs
+      kd's 2.80/2.35/2.95) and has the best parse rate (19/20) — curation
+      beat raw volume here. All 3 variants tie on guardrail pass rate
+      (6/20), suggesting guardrail compliance didn't transfer to novel
+      questions regardless of training approach.
+- [x] Phase 5 — Excel report + research agent. `report/research_agent.py`
+      produces a numbers-cited tradeoffs writeup. One factual error caught
+      and fixed by hand in the first draft: "10 extra milliseconds" for
+      the SFT-vs-base speed gap — actually ~3 seconds per full response.
+      **Second, deeper pass, prompted by manually reading real UI output**:
+      found and fixed 5 real bugs in `eval/guardrails.py` itself (not the
+      eval harness) — (1) no deduplication, one issue could produce 2-4
+      near-identical violation lines; (2) couldn't distinguish citing the
+      fixed policy ceiling ("exceeds our 10% hard ceiling") from restating
+      the customer's ask ("they want 12%") — resolved per user direction:
+      only the customer's ask is flagged now; (3) `response_lag_or_stall`'s
+      surface check matched the bare word "pending", false-triggering on
+      unrelated content (Delta's real "budget approval pending") and
+      silently hiding genuine unsurfaced-lag misses; (4)
+      `discount_ask_above_policy`'s surface check was just the word
+      "discount" — "no discount is warranted" counted as surfacing the
+      risk; (5) an exact 10.0% discount fell through to the weaker
+      "approved band" message due to a strict `>` where policy says
+      "at or above 10%". All 60 existing responses were **re-scored**
+      (`eval/rescore_results.py` — not re-generated, model outputs didn't
+      change) against the fixed logic: overall guardrail pass rate rose
+      from 18/60 (30%) to 25/60 (42%), and the per-variant breakdown
+      became genuinely differentiated for the first time — base 9/20,
+      kd 9/20, sft 7/20 — instead of an artificial 6/20 three-way tie that
+      was itself a symptom of the bugs equally polluting all three
+      variants. Report and Excel rebuilt on the corrected data
+      (`results/results-20260910-2232.xlsx`); final recommendation shifted
+      to a more nuanced "ship SFT, but the guardrail gap is real and
+      within noise at N=20 — validate in production" rather than the
+      earlier unqualified SFT recommendation.
+- [x] Dataset Browser page — `ui/pages/1_📁_Dataset_Browser.py` (Streamlit's
+      standard multi-page convention — appears in the sidebar nav
+      automatically alongside the comparison tool). Per account: profile +
+      contacts table, opportunity metrics (stage/value/win-probability/
+      close date), color-coded risk factors, line items, and every email
+      and call transcript rendered in full and individually selectable, plus
+      a shared "Company-Wide Reference" tab for the 3 playbooks + product
+      catalog. Reuses `common/context.py::assemble_context()` — the same
+      function training and eval read through — so it always reflects
+      exactly what the models actually see, nothing re-derived. Verified:
+      data logic checked against all 4 accounts (including Globex's
+      zero-risk-factor edge case) before launch; server started with no
+      errors.
+- [x] Phase 6 — Streamlit UI. `ui/app.py` reads `models/registry.yaml`
+      dynamically (adding a 4th variant needs zero UI code changes), lets
+      you pick an account + query, runs it through every registered
+      variant sequentially (VRAM constraint — one GGUF resident at a
+      time), shows guardrail pass/fail + optional judge scores + perf
+      side by side, and has a "Run Full Eval Suite" button that re-invokes
+      the eval → research agent → Excel pipeline. Server verified running
+      (`streamlit run ui/app.py`, HTTP 200) and the core comparison
+      function verified working end-to-end with a real generation +
+      guardrail check — **not** visually verified in a browser (no browser
+      tool available this session); run it yourself at
+      `http://localhost:8501` to confirm the UI itself renders correctly.
+
+## Setup
+
+```bash
+/home/dsp-at-magna/Magna/venv-gpu/bin/pip install -r requirements.txt
+cp .env.example .env   # then fill in ANTHROPIC_API_KEY
+```
+
+`ANTHROPIC_API_KEY` is now set in this project's `.env` (added 2026-09-10 —
+until then, Phase 1's OpenAI credits were exhausted and no Claude key existed
+anywhere on the machine; the initial 58-query batch was generated via a mix
+of Claude Code sub-agents acting directly as the teacher, no API key needed,
+plus the Anthropic API for the remainder once the key was added). Judge
+(Phase 4) and research agent (Phase 5) both default to `TEACHER_BACKEND=claude`
+via `common/llm_backend.py` now that a key is available.

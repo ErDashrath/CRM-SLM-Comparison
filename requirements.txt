@@ -1,0 +1,45 @@
+# CRM-SLM-Comparison POC - Python dependencies
+#
+# Installed into the existing GPU venv at /home/dsp-at-magna/Magna/venv-gpu/,
+# which already has llama_cpp_python 0.3.35 built with CUDA support. Install
+# with that venv's pip directly:
+#   /home/dsp-at-magna/Magna/venv-gpu/bin/pip install -r requirements.txt
+#
+# No RAG layer here (unlike SalesIntelligence) -- this project is about
+# comparing how a model was specialized, not about retrieval, so
+# chromadb/sentence-transformers are intentionally not listed.
+
+# --- Phase 0 (models/) ---
+pyyaml==6.0.3                  # models/registry.yaml parsing
+
+# --- Phase 1/4/5 (data_gen/, eval/judge.py, report/research_agent.py) ---
+anthropic==1.3.0               # Claude teacher, judge, and research agent
+openai>=1.0.0                  # optional fallback teacher/judge backend
+python-dotenv==1.2.3           # load ANTHROPIC_API_KEY / OPENAI_API_KEY from a local .env
+
+# --- Phase 3 (training/) -- QLoRA fine-tuning stack ---
+# Same stack as SalesIntelligence's llm/sft/train_lora.py, and deliberately
+# NOT Unsloth -- Unsloth 2026.9.2 + trl 0.24.0 on this venv's Python 3.14
+# was confirmed to inject a broken eos_token/pad_token sentinel into trl's
+# SFTTrainer, and the user separately said not to use Unsloth going forward
+# regardless of that bug. peft+bitsandbytes+trl (unpatched)+liger-kernel is
+# the proven-working local path; real training runs happen on Colab anyway.
+peft==0.20.0
+trl==0.24.0
+accelerate==1.14.0
+bitsandbytes==0.50.2
+liger-kernel==0.8.2
+huggingface_hub==1.30.0        # `hf download` for base model / GGUF conversion tooling if needed
+
+# --- Phase 4 (eval/perf.py) ---
+pynvml==11.5.3                 # nvidia-smi-equivalent VRAM sampling from Python
+
+# --- Phase 5 (report/) ---
+pandas==2.3.3
+openpyxl==3.1.5
+
+# --- Phase 6 (ui/) ---
+streamlit==1.63.0               # matches SalesIntelligence's hitl_ui/app.py convention
+
+# --- testing ---
+pytest==9.1.1
