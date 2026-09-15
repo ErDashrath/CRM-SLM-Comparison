@@ -23,17 +23,24 @@ def _tokens(text: str) -> list[str]:
 def _documents() -> list[dict]:
     documents = []
     for row in query_rows(
-        "SELECT account_id, name, account_health, notes FROM accounts"
+        "SELECT name AS account_id, customer_name AS name, custom_account_health AS account_health, "
+        "customer_details AS notes FROM customers"
     ):
-        documents.append({"source_type": "account", "account_id": row["account_id"], "title": row["name"], "text": " ".join(str(v or "") for v in row.values())})
+        documents.append({"document_id": f"account:{row['account_id']}", "source_type": "account", "account_id": row["account_id"], "title": row["name"], "text": " ".join(str(v or "") for v in row.values())})
     for row in query_rows(
-        "SELECT opportunity_id, account_id, name, stage, deal_value_inr, expected_close_date, win_probability_pct, notes FROM opportunities"
+        "SELECT o.name AS opportunity_id, o.customer AS account_id, o.title AS name, o.sales_stage AS stage, "
+        "o.opportunity_amount AS deal_value_inr, o.expected_closing AS expected_close_date, "
+        "o.probability AS win_probability_pct, o.notes FROM opportunities o"
     ):
-        documents.append({"source_type": "opportunity", "account_id": row["account_id"], "title": row["name"], "text": " ".join(str(v or "") for v in row.values())})
+        documents.append({"document_id": f"opportunity:{row['opportunity_id']}", "source_type": "opportunity", "account_id": row["account_id"], "title": row["name"], "text": " ".join(str(v or "") for v in row.values())})
     for row in query_rows(
-        "SELECT account_id, activity_type, activity_date, title, body FROM activities"
+        "SELECT cm.name AS communication_id, o.customer AS account_id, cm.communication_medium AS medium, "
+        "cm.communication_date AS activity_date, "
+        "cm.subject AS title, cm.content AS body FROM communications cm "
+        "JOIN opportunities o ON o.name = cm.reference_name"
     ):
-        documents.append({"source_type": row["activity_type"], "account_id": row["account_id"], "title": row["title"], "date": row["activity_date"], "text": " ".join(str(v or "") for v in row.values())})
+        activity_type = "email" if row["medium"] == "Email" else "transcript"
+        documents.append({"document_id": f"communication:{row['communication_id']}", "source_type": activity_type, "account_id": row["account_id"], "title": row["title"], "date": row["activity_date"], "text": " ".join(str(v or "") for v in (row["title"], row["body"]))})
     return documents
 
 
