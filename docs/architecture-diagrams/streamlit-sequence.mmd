@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant U as User
+    participant UI as Streamlit ui/app.py
+    participant CHAT as common/rag_chat.py
+    participant MEM as conversation_memory.py
+    participant AGENT as crm_agent.py
+    participant T as crm_tools.py
+    participant R as crm_retrieval.py
+    participant DB as SQLite
+    participant M as Selected local model
+
+    U->>UI: Ask question
+    UI->>CHAT: question + account scope + history
+    CHAT->>MEM: Resolve follow-up context
+    MEM-->>CHAT: Resolved CRM query and memory
+    CHAT->>M: Propose validated tool calls
+    M-->>CHAT: Tool-call JSON or invalid plan
+    CHAT->>AGENT: Validate plan
+    AGENT->>T: Execute structured CRM query
+    T->>DB: Bounded read-only SQL
+    DB-->>T: Structured rows
+    AGENT->>R: Search relevant CRM documents
+    R->>DB: Read CRM records
+    DB-->>R: Ranked evidence
+    T-->>CHAT: Tool result
+    R-->>CHAT: Retrieved evidence
+    CHAT->>M: Evidence + conversation + current question
+    M-->>CHAT: Natural-language response
+    CHAT-->>UI: Answer, rows, sources, trace
+    UI-->>U: Render response

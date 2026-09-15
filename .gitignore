@@ -40,11 +40,13 @@ data/context_summaries.json
 data/*_compacted.jsonl
 data/kd_batch_output/
 data/*.sqlite3
+data/telemetry/
 
 # Generated evaluation/report outputs
 results/*
 report/*.xlsx
 report/*.md
+outputs/
 
 # OS and editor files
 .DS_Store

@@ -1,0 +1,24 @@
+flowchart TB
+    TEST[data/eval_set.jsonl]
+    CONTEXT[Account or portfolio context]
+    VARIANTS[Base / KD / SFT]
+    GENERATE[Local GGUF generation]
+    PARSE[NextBestAction parsing and repair]
+    GUARD[Deterministic guardrails]
+    PERF[Latency / tokens / VRAM]
+    JUDGE[Claude judge]
+    JSON[results/eval_results.json]
+    RESEARCH[Research agent]
+    XLSX[Excel workbook]
+
+    TEST --> CONTEXT
+    CONTEXT --> VARIANTS
+    VARIANTS --> GENERATE
+    GENERATE --> PARSE
+    PARSE --> GUARD
+    PARSE --> PERF
+    PARSE --> JUDGE
+    GUARD --> JSON
+    PERF --> JSON
+    JUDGE --> JSON
+    JSON --> RESEARCH --> XLSX

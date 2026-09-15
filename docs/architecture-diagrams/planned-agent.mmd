@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant U as User
+    participant M as Individual local model
+    participant T as CRM tool
+    participant DB as CRM database
+
+    U->>M: How many contacts are there?
+    M->>T: crm(question, semantic plan)
+    T->>T: Validate plan against schema catalog
+    T->>DB: Parameterized structured lookup
+    DB-->>T: Authoritative rows
+    T->>DB: Bounded evidence retrieval when needed
+    DB-->>T: Relevant documents
+    T-->>M: Unified result
+    M-->>U: There are 12 contacts...

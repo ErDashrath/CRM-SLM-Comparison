@@ -1,0 +1,45 @@
+erDiagram
+    ACCOUNTS ||--o{ CONTACTS : contains
+    ACCOUNTS ||--o{ OPPORTUNITIES : owns
+    ACCOUNTS ||--o{ ACTIVITIES : has
+
+    ACCOUNTS {
+      text account_id PK
+      text name
+      text industry
+      text segment
+      text region
+      text account_health
+      text owner
+      text notes
+    }
+
+    OPPORTUNITIES {
+      text opportunity_id PK
+      text account_id FK
+      text name
+      text stage
+      real deal_value_inr
+      text expected_close_date
+      real win_probability_pct
+      text notes
+    }
+
+    CONTACTS {
+      integer contact_id PK
+      text account_id FK
+      text name
+      text role
+      text contact_type
+      text engagement_level
+      text notes
+    }
+
+    ACTIVITIES {
+      integer activity_id PK
+      text account_id FK
+      text activity_type
+      text activity_date
+      text title
+      text body
+    }

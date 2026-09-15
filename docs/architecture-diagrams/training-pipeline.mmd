@@ -1,0 +1,12 @@
+flowchart LR
+    JSONL[Training JSONL]
+    BUILD[build_conversational_examples]
+    TOKENIZE[Qwen tokenizer and chat template]
+    LORA[PEFT / LoRA SFTTrainer]
+    ADAPTER[LoRA adapter]
+    MERGE[Merge adapter into base]
+    QUANT[Q4_K_M quantization]
+    GGUF[Merged GGUF]
+    REG[Registry entry]
+
+    JSONL --> BUILD --> TOKENIZE --> LORA --> ADAPTER --> MERGE --> QUANT --> GGUF --> REG

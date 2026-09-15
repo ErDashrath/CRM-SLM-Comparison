@@ -1,0 +1,35 @@
+flowchart TB
+    CRM[mock_crm fixtures]
+    DB[(SQLite CRM database)]
+    CONTEXT[Full context assembly]
+    RETRIEVAL[Local lexical RAG]
+    TOOLS[Read-only CRM tools]
+
+    CRM --> DB
+    CRM --> CONTEXT
+    DB --> RETRIEVAL
+    DB --> TOOLS
+
+    subgraph RESEARCH[Research and training path]
+      CONTEXT --> TEACHER[Claude or OpenAI teacher]
+      TEACHER --> NBA[NextBestAction JSON]
+      NBA --> GR[Guardrails]
+      GR --> DATA[KD and SFT JSONL]
+      DATA --> TRAIN[LoRA / QLoRA training]
+      TRAIN --> MERGE[Merge and Q4 quantization]
+      MERGE --> REG[models/registry.yaml]
+      REG --> EVAL[Batch evaluation]
+      EVAL --> REPORT[Excel and tradeoff reports]
+    end
+
+    subgraph CHAT[Current Streamlit chat path]
+      UI[ui/app.py] --> RAGCHAT[common/rag_chat.py]
+      RAGCHAT --> AGENT[common/crm_agent.py]
+      AGENT --> TOOLS
+      AGENT --> RETRIEVAL
+      TOOLS --> EVIDENCE[Tool result]
+      RETRIEVAL --> EVIDENCE
+      EVIDENCE --> LOCAL[Selected local variant]
+      LOCAL --> ANSWER[Natural-language answer]
+      ANSWER --> UI
+    end

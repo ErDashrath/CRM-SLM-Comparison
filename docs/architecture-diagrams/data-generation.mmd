@@ -1,0 +1,21 @@
+flowchart LR
+    FIXTURES[mock_crm fixtures]
+    ASSEMBLE[common.context.assemble_context]
+    PROMPT[NextBestAction system prompt]
+    TEACHER[Claude or OpenAI teacher]
+    PARSE[Parse NextBestAction]
+    CHECK[Guardrails]
+    KD[data/kd_train.jsonl]
+    REJECT[data/kd_rejected.jsonl]
+    CURATE[Automated stratified selection]
+    SFT[data/sft_train.jsonl]
+
+    FIXTURES --> ASSEMBLE
+    ASSEMBLE --> PROMPT
+    PROMPT --> TEACHER
+    TEACHER --> PARSE
+    PARSE --> CHECK
+    CHECK -->|accepted| KD
+    CHECK -->|rejected| REJECT
+    KD --> CURATE
+    CURATE --> SFT
