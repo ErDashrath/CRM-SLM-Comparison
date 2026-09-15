@@ -1,0 +1,17 @@
+{
+  "name": "initech_2026-08-05_followup_1",
+  "owner": "Administrator",
+  "creation": "2026-08-05 09:00:00",
+  "modified": "2026-08-05 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Following up — Core Ops Suite proposal + next steps",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Deepak Verma (deepak.verma@nimbussystems.example)",
+  "recipients": "Neha Kapoor",
+  "content": "**Date:** 2026-08-05\n**From:** Deepak Verma (deepak.verma@nimbussystems.example)\n**To:** Neha Kapoor\n**Cc:** Suresh Bhatia\n**Subject:** Following up — Core Ops Suite proposal + next steps\n\nHi Neha,\n\nFollowing up on our demo last week — as promised, I've attached a proposal scoped to your team size (80 seats, Standard Support, and an onboarding package).\n\nYou mentioned wanting to discuss internally with Suresh before we reconnect — happy to hop on a call whenever works, or answer any questions over email in the meantime. Let me know a good time for a follow-up in the next week or two.\n\nBest,\nDeepak\n",
+  "communication_date": "2026-08-05 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_initech_001"
+}

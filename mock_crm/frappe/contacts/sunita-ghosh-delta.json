@@ -1,0 +1,28 @@
+{
+  "name": "sunita-ghosh-delta",
+  "owner": "Administrator",
+  "creation": "2025-09-02 09:00:00",
+  "modified": "2025-09-02 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Sunita",
+  "last_name": "Ghosh",
+  "full_name": "Sunita Ghosh",
+  "designation": "CFO",
+  "company_name": "Delta Freight & Warehousing",
+  "email_ids": [
+    {
+      "email_id": "sunita.ghosh@deltafreight.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "delta"
+    }
+  ],
+  "custom_contact_type": "economic_buyer",
+  "custom_engagement_level": "medium",
+  "custom_notes": "Verbally supportive of the deal but has flagged that final sign-off depends on this quarter's capex budget review, which has not yet concluded."
+}

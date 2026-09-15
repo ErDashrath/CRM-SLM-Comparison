@@ -1,0 +1,17 @@
+{
+  "name": "acme_corp_2026-08-13_meeting_recap",
+  "owner": "Administrator",
+  "creation": "2026-08-13 09:00:00",
+  "modified": "2026-08-13 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Recap — Commercial Negotiation Kickoff (2026-08-12)",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Sanjay Kulkarni (sanjay.kulkarni@nimbussystems.example)",
+  "recipients": "Rajesh Mehta, Vikram Nair",
+  "content": "**Date:** 2026-08-13\n**From:** Sanjay Kulkarni (sanjay.kulkarni@nimbussystems.example)\n**To:** Rajesh Mehta, Vikram Nair\n**Cc:** Ananya Sharma\n**Subject:** Recap — Commercial Negotiation Kickoff (2026-08-12)\n\nHi all,\n\nThanks for the time yesterday. Quick recap for anyone who couldn't join (Ananya, looping you in directly since I know yesterday didn't work with your schedule):\n\n- Walked through the full commercial proposal: 200 seats Core Ops Suite, Analytics add-on, Integration module, Premium Support — INR 48,00,000 annually.\n- Vikram flagged that Acme has received an alternative proposal from a competitor, XYZ, for a comparable scope at a noticeably lower price point. We agreed to follow up with specifics on what XYZ's proposal actually includes (support tier, implementation timeline) so we're comparing like for like.\n- Rajesh reiterated that the technical fit is a clear win for Nimbus and didn't want scope reduced purely to hit a price target.\n- Vikram will come back with a specific price ask once internal review is complete.\n\nAnanya — given the sign-off timeline you mentioned on the technical call, I'd really like to get 30 minutes on your calendar before we finalize commercial terms. I've sent an invite for early next week; let me know if another time works better.\n\nBest,\nSanjay\n",
+  "communication_date": "2026-08-13 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_acme_corp_001"
+}

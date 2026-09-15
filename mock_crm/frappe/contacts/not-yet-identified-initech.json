@@ -1,0 +1,23 @@
+{
+  "name": "not-yet-identified-initech",
+  "owner": "Administrator",
+  "creation": "2026-05-20 09:00:00",
+  "modified": "2026-05-20 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Not",
+  "last_name": "yet identified",
+  "full_name": "Not yet identified",
+  "designation": "Procurement",
+  "company_name": "Initech Solutions",
+  "email_ids": [],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "initech"
+    }
+  ],
+  "custom_contact_type": "procurement",
+  "custom_engagement_level": "none",
+  "custom_notes": "No procurement contact has entered the deal yet; discussions never reached a commercial stage."
+}

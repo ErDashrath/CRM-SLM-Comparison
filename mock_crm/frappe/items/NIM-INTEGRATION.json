@@ -1,0 +1,17 @@
+{
+  "name": "NIM-INTEGRATION",
+  "owner": null,
+  "creation": null,
+  "modified": null,
+  "modified_by": null,
+  "docstatus": 0,
+  "item_code": "NIM-INTEGRATION",
+  "item_name": "Nimbus Integration & API Module",
+  "item_group": "Add-on Module",
+  "standard_rate": 400000,
+  "description": "Pre-built connectors and open API access for ERP, SCM, and third-party system integration.",
+  "is_sales_item": 1,
+  "disabled": 0,
+  "custom_pricing_model": "flat_annual",
+  "custom_unit": "deployment/year"
+}

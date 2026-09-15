@@ -1,0 +1,28 @@
+{
+  "name": "manoj-dutta-delta",
+  "owner": "Administrator",
+  "creation": "2025-09-02 09:00:00",
+  "modified": "2025-09-02 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Manoj",
+  "last_name": "Dutta",
+  "full_name": "Manoj Dutta",
+  "designation": "Procurement Lead",
+  "company_name": "Delta Freight & Warehousing",
+  "email_ids": [
+    {
+      "email_id": "manoj.dutta@deltafreight.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "delta"
+    }
+  ],
+  "custom_contact_type": "procurement",
+  "custom_engagement_level": "high",
+  "custom_notes": "Commercial terms and contract language are fully agreed. Waiting only on internal budget sign-off, not renegotiation."
+}

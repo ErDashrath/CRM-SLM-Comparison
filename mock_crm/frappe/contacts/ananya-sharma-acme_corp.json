@@ -1,0 +1,28 @@
+{
+  "name": "ananya-sharma-acme_corp",
+  "owner": "Administrator",
+  "creation": "2023-04-10 09:00:00",
+  "modified": "2023-04-10 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Ananya",
+  "last_name": "Sharma",
+  "full_name": "Ananya Sharma",
+  "designation": "VP Finance (CFO's direct report, deal sign-off authority)",
+  "company_name": "Acme Corp",
+  "email_ids": [
+    {
+      "email_id": "ananya.sharma@acmecorp.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "acme_corp"
+    }
+  ],
+  "custom_contact_type": "economic_buyer",
+  "custom_engagement_level": "low_recent",
+  "custom_notes": "Was engaged during discovery and technical evaluation. Has sent regrets and skipped the last 2 commercial-stage meetings (2026-08-12 and 2026-08-25). No direct commercial engagement since technical sign-off."
+}

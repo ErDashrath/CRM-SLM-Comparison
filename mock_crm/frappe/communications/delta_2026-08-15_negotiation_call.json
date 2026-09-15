@@ -1,0 +1,17 @@
+{
+  "name": "delta_2026-08-15_negotiation_call",
+  "owner": "Administrator",
+  "creation": "2026-08-15 09:00:00",
+  "modified": "2026-08-15 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Commercial Negotiation — Terms Finalization",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Delta Freight & Warehousing\n\n**Date:** 2026-08-15\n**Type:** Commercial Negotiation — Terms Finalization\n**Participants:** Ritu Banerjee (Nimbus Systems, Account Executive), Anil Chatterjee (Delta, Director of Warehouse Operations), Manoj Dutta (Delta, Procurement Lead)\n\n---\n\n**Ritu:** Good to connect — last time we left off close to agreement on terms. Where do things stand on your end?\n\n**Manoj:** We're aligned on scope — 120 seats, Integration module, Standard Support, onboarding, and the Analytics add-on. On price, we'd like a 6% discount off list, which I understand is within your standard range.\n\n**Ritu:** That's within our approved band, so I can confirm that today — 6% off list brings the annual total to INR 29,00,000.\n\n**Anil:** That works for us. Operationally we're ready to move as soon as this is signed — my team has been waiting on this rollout for a while.\n\n**Manoj:** The one thing I'll flag is that final sign-off needs to go through our CFO's capex budget committee, which meets quarterly. I don't expect pushback on the number since it's within what we scoped for, but I can't guarantee the exact date it clears.\n\n**Ritu:** Understood — is there anything I can provide to help that review move smoothly? Happy to put together a one-pager on expected ROI if that's useful for the committee.\n\n**Manoj:** That would help, yes. Send that over and I'll include it in the packet.\n\n**Anil:** I'll also flag it internally to keep it moving — I don't anticipate this being a hard sell to the committee given the terms are already agreed.\n",
+  "communication_date": "2026-08-15 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_delta_001"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "delta",
+  "owner": "Administrator",
+  "creation": "2025-09-02 09:00:00",
+  "modified": "2025-09-02 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "customer_name": "Delta Freight & Warehousing",
+  "customer_type": "Company",
+  "customer_group": "Enterprise",
+  "territory": "India - East",
+  "industry": "Warehousing & Distribution",
+  "market_segment": "Enterprise",
+  "default_currency": "INR",
+  "account_manager": "Ritu Banerjee",
+  "customer_details": "Commercial terms are agreed and the champion and procurement are aligned, but the deal is gated on internal CFO/budget-committee sign-off tied to this quarter's capex review cycle. Risk is budget-approval timing, not deal desirability, pricing, or competition.",
+  "custom_account_health": "at_risk",
+  "custom_relationship_start_date": "2025-09-02",
+  "custom_hq_city": "Kolkata, West Bengal",
+  "custom_employee_count": 1300,
+  "custom_annual_revenue": 540000000,
+  "custom_account_owner_role": "Senior Account Executive, Nimbus Systems"
+}

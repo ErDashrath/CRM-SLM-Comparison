@@ -1,0 +1,92 @@
+{
+  "name": "opp_acme_corp_001",
+  "owner": "Administrator",
+  "creation": "2026-05-14 09:00:00",
+  "modified": "2026-08-26 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "party_name": "acme_corp",
+  "customer": "acme_corp",
+  "customer_name": "Acme Corp",
+  "title": "Acme Corp - Core Ops Suite Expansion (200 seats) + Analytics & Integration",
+  "status": "Open",
+  "opportunity_type": "Existing Customer",
+  "opportunity_owner": "Sanjay Kulkarni",
+  "sales_stage": "Commercial Negotiation",
+  "probability": 58,
+  "expected_closing": "2026-09-28",
+  "transaction_date": "2026-05-14",
+  "opportunity_amount": 4800000,
+  "currency": "INR",
+  "contact_person": "rajesh-mehta-acme_corp",
+  "industry": "Industrial Manufacturing",
+  "territory": "India - West",
+  "items": [
+    {
+      "item_code": "NIM-CORE",
+      "description": "200 seats @ INR 15,000/seat/year",
+      "qty": 1,
+      "rate": 3000000,
+      "amount": 3000000
+    },
+    {
+      "item_code": "NIM-ANALYTICS",
+      "description": "Advanced Analytics Add-on, 1 deployment",
+      "qty": 1,
+      "rate": 1200000,
+      "amount": 1200000
+    },
+    {
+      "item_code": "NIM-INTEGRATION",
+      "description": "Integration & API Module, 1 deployment",
+      "qty": 1,
+      "rate": 400000,
+      "amount": 400000
+    },
+    {
+      "item_code": "NIM-SUPPORT-PREM",
+      "description": "Premium Support, 1 deployment",
+      "qty": 1,
+      "rate": 200000,
+      "amount": 200000
+    }
+  ],
+  "notes": [
+    {
+      "note": "Technical evaluation and solution architecture are fully approved with no open objections — this is a commercial-stage deal, not a product-fit problem. Procurement is pushing hard on price and citing competitor XYZ's lower quote, but the economic buyer has gone quiet at exactly the moment commercial terms are being negotiated, which is the bigger structural risk: without her back at the table, any discount approved by procurement alone may not actually secure sign-off. System-calculated win probability is 58%, reflecting the combination of strong technical fit against real commercial and engagement risk. Approved negotiation band is 5-7%, hard ceiling 10% — the 12% ask exceeds both.",
+      "added_on": "2026-05-14"
+    }
+  ],
+  "custom_last_activity_date": "2026-08-26",
+  "custom_technical_evaluation_approved": 1,
+  "custom_technical_evaluation_approved_date": "2026-07-30",
+  "custom_solution_architecture_approved": 1,
+  "custom_solution_architecture_approved_date": "2026-07-30",
+  "custom_approved_min_discount_pct": 5,
+  "custom_approved_max_discount_pct": 7,
+  "custom_hard_ceiling_discount_pct": 10,
+  "custom_requires_vp_sales_approval_above_pct": 7,
+  "custom_requires_cro_approval_above_pct": 10,
+  "opportunity_risk_factors": [
+    {
+      "risk_type": "economic_buyer_disengagement",
+      "severity": "high",
+      "description": "Economic buyer (Ananya Sharma, VP Finance) has not attended either of the last 2 commercial negotiation meetings (2026-08-12, 2026-08-25)."
+    },
+    {
+      "risk_type": "competitive_threat",
+      "severity": "high",
+      "description": "Competitor XYZ has submitted a lower-priced alternative proposal; procurement is actively using it as negotiation leverage."
+    },
+    {
+      "risk_type": "pricing_pressure",
+      "severity": "high",
+      "description": "Procurement (Vikram Nair) is requesting a 12% discount, above the approved 5-7% negotiation band and above the 10% hard ceiling."
+    },
+    {
+      "risk_type": "response_lag",
+      "severity": "medium",
+      "description": "No commercial response from Acme since the 2026-08-26 discount request email; 9 days elapsed as of 2026-09-04 with the account owner's reply still pending internal guidance."
+    }
+  ]
+}

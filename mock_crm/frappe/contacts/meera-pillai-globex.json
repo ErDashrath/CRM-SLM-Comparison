@@ -1,0 +1,28 @@
+{
+  "name": "meera-pillai-globex",
+  "owner": "Administrator",
+  "creation": "2024-01-15 09:00:00",
+  "modified": "2024-01-15 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Meera",
+  "last_name": "Pillai",
+  "full_name": "Meera Pillai",
+  "designation": "CFO",
+  "company_name": "Globex Logistics",
+  "email_ids": [
+    {
+      "email_id": "meera.pillai@globex.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "globex"
+    }
+  ],
+  "custom_contact_type": "economic_buyer",
+  "custom_engagement_level": "high",
+  "custom_notes": "Attended both the solution review and the contract walkthrough personally. Has pre-approved budget for the full scope."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "globex",
+  "owner": "Administrator",
+  "creation": "2024-01-15 09:00:00",
+  "modified": "2024-01-15 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "customer_name": "Globex Logistics",
+  "customer_type": "Company",
+  "customer_group": "Enterprise",
+  "territory": "India - South",
+  "industry": "Logistics & Supply Chain",
+  "market_segment": "Enterprise",
+  "default_currency": "INR",
+  "account_manager": "Priya Iyer",
+  "customer_details": "Healthy, on-track expansion opportunity following a successful 6-month pilot. Economic buyer (CFO) has been personally engaged throughout, budget is pre-approved, and there is no material competitor presence in the deal. Moving through contract drafting on the originally forecast timeline.",
+  "custom_account_health": "healthy",
+  "custom_relationship_start_date": "2024-01-15",
+  "custom_hq_city": "Chennai, Tamil Nadu",
+  "custom_employee_count": 1600,
+  "custom_annual_revenue": 620000000,
+  "custom_account_owner_role": "Senior Account Executive, Nimbus Systems"
+}

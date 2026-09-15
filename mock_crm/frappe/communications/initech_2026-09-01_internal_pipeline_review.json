@@ -1,0 +1,17 @@
+{
+  "name": "initech_2026-09-01_internal_pipeline_review",
+  "owner": "Administrator",
+  "creation": "2026-09-01 09:00:00",
+  "modified": "2026-09-01 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Internal Sales Team Pipeline Review",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Internal Pipeline Review (Initech Solutions segment)\n\n**Date:** 2026-09-01\n**Type:** Internal Sales Team Pipeline Review\n**Participants:** Deepak Verma (Nimbus Systems, Account Executive), Meenal Rao (Nimbus Systems, VP Sales)\n\n---\n\n**Meenal:** Let's do Initech next. Where does that stand?\n\n**Deepak:** Not great, honestly. Demo was July 28th, went well in the room — Neha was enthusiastic, Suresh popped in briefly and seemed positive. I sent a proposal August 5th, followed up again August 20th. No response either time.\n\n**Meenal:** No response at all, from anyone? Not even Suresh?\n\n**Deepak:** Nothing. And Suresh never really engaged directly to begin with — he was only on the demo for ten minutes. Neha's been my only real contact, and she's gone quiet too.\n\n**Meenal:** Is there a next meeting on the calendar?\n\n**Deepak:** No, nothing scheduled. It's been over a month since the demo with no substantive activity.\n\n**Meenal:** Okay — this reads as a stalled deal, not a pricing or competitive issue, right? No competitor's come up?\n\n**Deepak:** Correct, no competitor mentioned, no pricing conversation has even happened yet — we never got that far. I think the right move is a re-engagement attempt, maybe try a different channel or a different contact, rather than sending another version of the same follow-up.\n\n**Meenal:** Agreed. Try reaching Suresh directly this time instead of going through Neha again, and flag this as at-risk in the pipeline review.\n",
+  "communication_date": "2026-09-01 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_initech_001"
+}

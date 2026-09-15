@@ -1,0 +1,28 @@
+{
+  "name": "arvind-rao-globex",
+  "owner": "Administrator",
+  "creation": "2024-01-15 09:00:00",
+  "modified": "2024-01-15 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Arvind",
+  "last_name": "Rao",
+  "full_name": "Arvind Rao",
+  "designation": "Procurement Manager",
+  "company_name": "Globex Logistics",
+  "email_ids": [
+    {
+      "email_id": "arvind.rao@globex.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "globex"
+    }
+  ],
+  "custom_contact_type": "procurement",
+  "custom_engagement_level": "high",
+  "custom_notes": "Standard procurement process, no unusual pricing pressure. Contract redlines are administrative, not commercial."
+}

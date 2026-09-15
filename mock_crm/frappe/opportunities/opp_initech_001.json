@@ -1,0 +1,80 @@
+{
+  "name": "opp_initech_001",
+  "owner": "Administrator",
+  "creation": "2026-07-15 09:00:00",
+  "modified": "2026-07-28 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "party_name": "initech",
+  "customer": "initech",
+  "customer_name": "Initech Solutions",
+  "title": "Initech Solutions - Core Ops Suite (initial deployment)",
+  "status": "Open",
+  "opportunity_type": "Existing Customer",
+  "opportunity_owner": "Deepak Verma",
+  "sales_stage": "Proposal Sent",
+  "probability": 22,
+  "expected_closing": "2026-10-15",
+  "transaction_date": "2026-07-15",
+  "opportunity_amount": 1450000,
+  "currency": "INR",
+  "contact_person": "neha-kapoor-initech",
+  "industry": "Business Process Outsourcing",
+  "territory": "India - North",
+  "items": [
+    {
+      "item_code": "NIM-CORE",
+      "description": "80 seats @ INR 15,000/seat/year",
+      "qty": 1,
+      "rate": 1200000,
+      "amount": 1200000
+    },
+    {
+      "item_code": "NIM-SUPPORT-STD",
+      "description": "Standard Support, 1 deployment",
+      "qty": 1,
+      "rate": 100000,
+      "amount": 100000
+    },
+    {
+      "item_code": "NIM-TRAINING",
+      "description": "Onboarding & Training Package (one-time)",
+      "qty": 1,
+      "rate": 150000,
+      "amount": 150000
+    }
+  ],
+  "notes": [
+    {
+      "note": "This is a momentum/engagement risk, not a pricing or competitive one — no competitor has been mentioned and no discount has been discussed, because the deal never reached a commercial conversation. The champion (Neha Kapoor) was enthusiastic during the demo but has since gone quiet. Win probability has been revised down to reflect the stall. Recommended action is re-engagement outreach, not a pricing lever.",
+      "added_on": "2026-07-15"
+    }
+  ],
+  "custom_last_activity_date": "2026-07-28",
+  "custom_technical_evaluation_approved": 0,
+  "custom_technical_evaluation_approved_date": null,
+  "custom_solution_architecture_approved": 0,
+  "custom_solution_architecture_approved_date": null,
+  "custom_approved_min_discount_pct": 5,
+  "custom_approved_max_discount_pct": 7,
+  "custom_hard_ceiling_discount_pct": 10,
+  "custom_requires_vp_sales_approval_above_pct": 7,
+  "custom_requires_cro_approval_above_pct": 10,
+  "opportunity_risk_factors": [
+    {
+      "risk_type": "stalled_engagement",
+      "severity": "high",
+      "description": "No substantive activity or reply from Initech since the 2026-07-28 demo call; over 30 days of silence as of 2026-09-04."
+    },
+    {
+      "risk_type": "no_next_meeting_scheduled",
+      "severity": "high",
+      "description": "No follow-up meeting is on the calendar. Two follow-up emails (2026-08-05, 2026-08-20) have gone unanswered."
+    },
+    {
+      "risk_type": "economic_buyer_never_engaged",
+      "severity": "medium",
+      "description": "The economic buyer (Suresh Bhatia, VP Operations) was copied on the initial demo invite but has never independently engaged."
+    }
+  ]
+}

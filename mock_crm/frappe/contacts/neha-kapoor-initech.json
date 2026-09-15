@@ -1,0 +1,28 @@
+{
+  "name": "neha-kapoor-initech",
+  "owner": "Administrator",
+  "creation": "2026-05-20 09:00:00",
+  "modified": "2026-05-20 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Neha",
+  "last_name": "Kapoor",
+  "full_name": "Neha Kapoor",
+  "designation": "Operations Manager",
+  "company_name": "Initech Solutions",
+  "email_ids": [
+    {
+      "email_id": "neha.kapoor@initech.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "initech"
+    }
+  ],
+  "custom_contact_type": "champion",
+  "custom_engagement_level": "unresponsive_recent",
+  "custom_notes": "Enthusiastic during the initial demo but has gone silent since. Has not replied to two follow-up emails."
+}

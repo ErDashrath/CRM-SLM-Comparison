@@ -1,0 +1,17 @@
+{
+  "name": "acme_corp_2026-08-26_procurement_discount_request",
+  "owner": "Administrator",
+  "creation": "2026-08-26 09:00:00",
+  "modified": "2026-08-26 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Formal pricing request — Core Ops Suite renewal/expansion",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Vikram Nair (vikram.nair@acmecorp.example)",
+  "recipients": "Sanjay Kulkarni",
+  "content": "**Date:** 2026-08-26\n**From:** Vikram Nair (vikram.nair@acmecorp.example)\n**To:** Sanjay Kulkarni\n**Subject:** Formal pricing request — Core Ops Suite renewal/expansion\n\nSanjay,\n\nFollowing up on our call yesterday. As discussed, we have received a competing proposal from XYZ for a comparable 200-seat deployment that comes in approximately 15% below your current quote of INR 48,00,000.\n\nTo move forward, we need Nimbus to come back with a **12% discount off list price** on the current proposal (Core Ops Suite, Analytics, Integration, Premium Support). This is the number our internal budget review requires to justify staying with Nimbus over XYZ given the price gap.\n\nPlease treat this as a formal request so we can get a decision in front of our leadership before month end. I know Ananya has been tied up, but I'll make sure she's aware of where things stand once we have your response.\n\nRegards,\nVikram Nair\nHead of Procurement, Acme Corp\n",
+  "communication_date": "2026-08-26 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_acme_corp_001"
+}

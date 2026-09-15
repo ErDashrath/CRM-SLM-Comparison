@@ -1,0 +1,17 @@
+{
+  "name": "NIM-CORE",
+  "owner": null,
+  "creation": null,
+  "modified": null,
+  "modified_by": null,
+  "docstatus": 0,
+  "item_code": "NIM-CORE",
+  "item_name": "Nimbus Core Ops Suite",
+  "item_group": "Platform License",
+  "standard_rate": 15000,
+  "description": "Base enterprise operations platform: order management, inventory visibility, and workflow automation. Priced per named seat, per year.",
+  "is_sales_item": 1,
+  "disabled": 0,
+  "custom_pricing_model": "per_seat_per_year",
+  "custom_unit": "seat/year"
+}

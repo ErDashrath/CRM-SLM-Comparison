@@ -1,0 +1,17 @@
+{
+  "name": "NIM-SUPPORT-STD",
+  "owner": null,
+  "creation": null,
+  "modified": null,
+  "modified_by": null,
+  "docstatus": 0,
+  "item_code": "NIM-SUPPORT-STD",
+  "item_name": "Standard Support",
+  "item_group": "Support Tier",
+  "standard_rate": 100000,
+  "description": "Business-hours support, 24-hour response SLA, quarterly business reviews.",
+  "is_sales_item": 1,
+  "disabled": 0,
+  "custom_pricing_model": "flat_annual",
+  "custom_unit": "deployment/year"
+}

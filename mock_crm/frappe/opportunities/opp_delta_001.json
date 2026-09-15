@@ -1,0 +1,84 @@
+{
+  "name": "opp_delta_001",
+  "owner": "Administrator",
+  "creation": "2026-04-20 09:00:00",
+  "modified": "2026-08-29 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "party_name": "delta",
+  "customer": "delta",
+  "customer_name": "Delta Freight & Warehousing",
+  "title": "Delta Freight & Warehousing - Core Ops Suite + Integration Module",
+  "status": "Open",
+  "opportunity_type": "Existing Customer",
+  "opportunity_owner": "Ritu Banerjee",
+  "sales_stage": "Verbal Agreement - Pending Budget Approval",
+  "probability": 65,
+  "expected_closing": "2026-09-30",
+  "transaction_date": "2026-04-20",
+  "opportunity_amount": 2900000,
+  "currency": "INR",
+  "contact_person": "anil-chatterjee-delta",
+  "industry": "Warehousing & Distribution",
+  "territory": "India - East",
+  "items": [
+    {
+      "item_code": "NIM-CORE",
+      "description": "120 seats @ INR 15,000/seat/year",
+      "qty": 1,
+      "rate": 1800000,
+      "amount": 1800000
+    },
+    {
+      "item_code": "NIM-INTEGRATION",
+      "description": "Integration & API Module, 1 deployment",
+      "qty": 1,
+      "rate": 400000,
+      "amount": 400000
+    },
+    {
+      "item_code": "NIM-SUPPORT-STD",
+      "description": "Standard Support, 1 deployment",
+      "qty": 1,
+      "rate": 100000,
+      "amount": 100000
+    },
+    {
+      "item_code": "NIM-TRAINING",
+      "description": "Onboarding & Training Package (one-time)",
+      "qty": 1,
+      "rate": 250000,
+      "amount": 250000
+    },
+    {
+      "item_code": "NIM-ANALYTICS",
+      "description": "Advanced Analytics Add-on, 1 deployment",
+      "qty": 1,
+      "rate": 350000,
+      "amount": 350000
+    }
+  ],
+  "notes": [
+    {
+      "note": "Champion and procurement are fully aligned and pricing is agreed within the approved band (6% discount, within the 5-7% approved range). The only open item is internal budget-committee sign-off on Delta's side, expected to conclude before the end of the quarter. No renegotiation is expected once budget clears.",
+      "added_on": "2026-04-20"
+    }
+  ],
+  "custom_last_activity_date": "2026-08-29",
+  "custom_technical_evaluation_approved": 1,
+  "custom_technical_evaluation_approved_date": "2026-07-10",
+  "custom_solution_architecture_approved": 1,
+  "custom_solution_architecture_approved_date": "2026-07-10",
+  "custom_approved_min_discount_pct": 5,
+  "custom_approved_max_discount_pct": 7,
+  "custom_hard_ceiling_discount_pct": 10,
+  "custom_requires_vp_sales_approval_above_pct": 7,
+  "custom_requires_cro_approval_above_pct": 10,
+  "opportunity_risk_factors": [
+    {
+      "risk_type": "budget_approval_pending",
+      "severity": "medium",
+      "description": "Commercial terms are fully agreed with champion and procurement, but final sign-off is gated on the CFO's capex budget committee review, which has not yet concluded this quarter."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "initech_2026-07-28_demo_call",
+  "owner": "Administrator",
+  "creation": "2026-07-28 09:00:00",
+  "modified": "2026-07-28 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Product Demo",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Initech Solutions\n\n**Date:** 2026-07-28\n**Type:** Product Demo\n**Participants:** Deepak Verma (Nimbus Systems, Account Executive), Neha Kapoor (Initech, Operations Manager), Suresh Bhatia (Initech, VP Operations) — joined 10 minutes late, left before Q&A\n\n---\n\n**Deepak:** Thanks for joining. Today I'll walk through the Core Ops Suite and how it maps to the workflow gaps Neha flagged in our intro call.\n\n**Neha:** Great, this is exactly what we've been trying to solve. The manual handoffs between our shift teams are costing us real time every day.\n\n**Deepak:** [Demo of workflow automation and shift handoff module]\n\n**Neha:** This is really impressive — the automated handoff log alone would save us hours a week. I want to get this in front of Suresh and our operations team properly.\n\n**Suresh:** [joins] Sorry I'm late — what I'm seeing looks good so far. Neha, can you put together a summary for me after this? I've got to drop for another meeting.\n\n**Neha:** Will do. Deepak, what would next steps look like on your end?\n\n**Deepak:** I'll send over a proposal based on your team size — happy to set up a follow-up call once you and Suresh have had a chance to review internally. I'll also loop in anyone from procurement whenever you're ready for that conversation.\n\n**Neha:** Sounds good, let's plan on connecting again in a couple weeks once we've discussed internally.\n",
+  "communication_date": "2026-07-28 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_initech_001"
+}

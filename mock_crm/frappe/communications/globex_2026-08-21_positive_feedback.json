@@ -1,0 +1,17 @@
+{
+  "name": "globex_2026-08-21_positive_feedback",
+  "owner": "Administrator",
+  "creation": "2026-08-21 09:00:00",
+  "modified": "2026-08-21 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Re: Solution Review recap",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Meera Pillai (meera.pillai@globex.example)",
+  "recipients": "Priya Iyer",
+  "content": "**Date:** 2026-08-21\n**From:** Meera Pillai (meera.pillai@globex.example)\n**To:** Priya Iyer\n**Subject:** Re: Solution Review recap\n\nPriya,\n\nThanks for yesterday's walkthrough. Confirming from my side — the budget for the full 150-seat rollout, Integration module, and Analytics add-on is approved and already accounted for in this fiscal year's operations budget. No open questions on the pricing.\n\nArvind will handle the contract redlines, but I don't expect anything material there given what we've seen so far. Please send the draft contract as soon as it's ready — I'd like to keep this on track for a signature before end of next month.\n\nBest,\nMeera\n",
+  "communication_date": "2026-08-21 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_globex_001"
+}

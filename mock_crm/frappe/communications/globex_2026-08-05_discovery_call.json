@@ -1,0 +1,17 @@
+{
+  "name": "globex_2026-08-05_discovery_call",
+  "owner": "Administrator",
+  "creation": "2026-08-05 09:00:00",
+  "modified": "2026-08-05 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Expansion Discovery Call",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Globex Logistics\n\n**Date:** 2026-08-05\n**Type:** Expansion Discovery Call\n**Participants:** Priya Iyer (Nimbus Systems, Account Executive), Karthik Subramaniam (Globex, Director of Operations), Meera Pillai (Globex, CFO)\n\n---\n\n**Priya:** Thanks for making time, both of you. After the pilot results, I wanted to understand what a full rollout would need to look like on your end.\n\n**Karthik:** The pilot exceeded what we expected, honestly. Order processing time dropped noticeably in the pilot warehouse. We want to move to full rollout across all four sites.\n\n**Meera:** From a budget standpoint, I've already flagged this internally as a priority for the current fiscal year. If the numbers Karthik's team is showing hold up, I don't expect budget to be the blocker.\n\n**Priya:** That's great to hear. I'll put together a full-scope proposal — Core Ops Suite across all sites, plus the Integration module given your ERP setup, and I'd recommend the Analytics add-on given how much you're already tracking on the operations side.\n\n**Meera:** Send it over and I'll review personally. I'd like to be part of the next call too, not just sign off at the end.\n\n**Karthik:** Agreed, let's keep this moving quickly — no reason to slow-walk something that's clearly working.\n",
+  "communication_date": "2026-08-05 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_globex_001"
+}

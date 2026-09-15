@@ -1,0 +1,17 @@
+{
+  "name": "acme_corp_2026-07-30_technical_evaluation_call",
+  "owner": "Administrator",
+  "creation": "2026-07-30 09:00:00",
+  "modified": "2026-07-30 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Technical Evaluation / Solution Architecture Review",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Acme Corp\n\n**Date:** 2026-07-30\n**Type:** Technical Evaluation / Solution Architecture Review\n**Participants:** Sanjay Kulkarni (Nimbus Systems, Account Executive), Priyanka Desai (Nimbus Systems, Solutions Engineer), Rajesh Mehta (Acme Corp, IT Director), Ananya Sharma (Acme Corp, VP Finance), Vikram Nair (Acme Corp, Head of Procurement)\n\n---\n\n**Sanjay:** Thanks everyone for joining. Today's goal is to walk through the final solution architecture for the 200-seat Core Ops Suite expansion plus the Analytics and Integration add-ons, and get formal sign-off from the technical side.\n\n**Priyanka:** Right, so we've addressed all the items from the last review — the SSO integration with your existing identity provider, the data residency requirements, and the API rate limits for your SCM system. Rajesh, does this match what your team tested in the sandbox?\n\n**Rajesh:** Yes, it does. My team ran it against three of our warehouse workflows over the past two weeks and didn't hit any blockers. I'm comfortable signing off on the architecture as presented.\n\n**Ananya:** I don't have technical concerns — Rajesh's team has been thorough. From my side I just want to make sure we're on track for the budget conversation before end of September, since that's when our current contract with the legacy vendor lapses.\n\n**Sanjay:** Understood. We'll move into commercial negotiation next, and I'd love to keep you in that loop directly, Ananya, given the timeline pressure.\n\n**Ananya:** Of course, send me the invites.\n\n**Vikram:** I'll be leading the commercial side day to day, but I'll loop Ananya in for anything that needs her sign-off.\n\n**Rajesh:** Confirming formal approval of the solution architecture from the technical side — no open items.\n\n**Sanjay:** Great, that's a wrap on technical evaluation. I'll send over the commercial proposal this week and we'll get a negotiation call on the calendar.\n",
+  "communication_date": "2026-07-30 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_acme_corp_001"
+}

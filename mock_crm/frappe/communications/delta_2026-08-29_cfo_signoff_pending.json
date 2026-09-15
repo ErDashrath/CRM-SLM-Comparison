@@ -1,0 +1,17 @@
+{
+  "name": "delta_2026-08-29_cfo_signoff_pending",
+  "owner": "Administrator",
+  "creation": "2026-08-29 09:00:00",
+  "modified": "2026-08-29 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Status update — budget committee timing",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Manoj Dutta (manoj.dutta@deltafreight.example)",
+  "recipients": "Ritu Banerjee",
+  "content": "**Date:** 2026-08-29\n**From:** Manoj Dutta (manoj.dutta@deltafreight.example)\n**To:** Ritu Banerjee\n**Cc:** Anil Chatterjee\n**Subject:** Status update — budget committee timing\n\nRitu,\n\nThanks for the ROI one-pager — it's been included in the packet for our CFO's capex budget committee. Terms remain as agreed (6% discount, 120 seats, Integration module, Standard Support, onboarding, Analytics add-on).\n\nThe committee meets again in the second half of September, so I'd plan on sign-off landing sometime around then rather than sooner. Nothing on our side suggests the number itself is in question — this is purely a timing/process step on our end.\n\nWill update you as soon as I hear back.\n\nRegards,\nManoj\n",
+  "communication_date": "2026-08-29 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_delta_001"
+}

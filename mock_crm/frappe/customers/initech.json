@@ -1,0 +1,23 @@
+{
+  "name": "initech",
+  "owner": "Administrator",
+  "creation": "2026-05-20 09:00:00",
+  "modified": "2026-05-20 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "customer_name": "Initech Solutions",
+  "customer_type": "Company",
+  "customer_group": "Mid-Market",
+  "territory": "India - North",
+  "industry": "Business Process Outsourcing",
+  "market_segment": "Mid-Market",
+  "default_currency": "INR",
+  "account_manager": "Deepak Verma",
+  "customer_details": "Deal has stalled after a positive initial product demo. There has been no substantive activity or reply from Initech in over 30 days, and no next meeting is on the calendar. Unlike Acme, this is not a pricing or competitor problem — there is simply no active engagement to work with, and the account is at risk of going cold.",
+  "custom_account_health": "at_risk",
+  "custom_relationship_start_date": "2026-05-20",
+  "custom_hq_city": "Gurugram, Haryana",
+  "custom_employee_count": 900,
+  "custom_annual_revenue": 310000000,
+  "custom_account_owner_role": "Account Executive, Nimbus Systems"
+}

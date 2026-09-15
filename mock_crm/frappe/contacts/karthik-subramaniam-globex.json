@@ -1,0 +1,28 @@
+{
+  "name": "karthik-subramaniam-globex",
+  "owner": "Administrator",
+  "creation": "2024-01-15 09:00:00",
+  "modified": "2024-01-15 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Karthik",
+  "last_name": "Subramaniam",
+  "full_name": "Karthik Subramaniam",
+  "designation": "Director of Operations",
+  "company_name": "Globex Logistics",
+  "email_ids": [
+    {
+      "email_id": "karthik.subramaniam@globex.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "globex"
+    }
+  ],
+  "custom_contact_type": "champion",
+  "custom_engagement_level": "high",
+  "custom_notes": "Requested the expansion after a strong pilot result. Drives internal consensus-building."
+}

@@ -1,0 +1,28 @@
+{
+  "name": "rajesh-mehta-acme_corp",
+  "owner": "Administrator",
+  "creation": "2023-04-10 09:00:00",
+  "modified": "2023-04-10 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Rajesh",
+  "last_name": "Mehta",
+  "full_name": "Rajesh Mehta",
+  "designation": "IT Director",
+  "company_name": "Acme Corp",
+  "email_ids": [
+    {
+      "email_id": "rajesh.mehta@acmecorp.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "acme_corp"
+    }
+  ],
+  "custom_contact_type": "champion",
+  "custom_engagement_level": "high",
+  "custom_notes": "Primary day-to-day contact. Sponsored the technical evaluation and has been consistently responsive."
+}

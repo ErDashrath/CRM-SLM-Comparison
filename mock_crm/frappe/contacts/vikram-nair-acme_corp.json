@@ -1,0 +1,28 @@
+{
+  "name": "vikram-nair-acme_corp",
+  "owner": "Administrator",
+  "creation": "2023-04-10 09:00:00",
+  "modified": "2023-04-10 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "first_name": "Vikram",
+  "last_name": "Nair",
+  "full_name": "Vikram Nair",
+  "designation": "Head of Procurement",
+  "company_name": "Acme Corp",
+  "email_ids": [
+    {
+      "email_id": "vikram.nair@acmecorp.example",
+      "is_primary": 1
+    }
+  ],
+  "links": [
+    {
+      "link_doctype": "Customer",
+      "link_name": "acme_corp"
+    }
+  ],
+  "custom_contact_type": "procurement",
+  "custom_engagement_level": "high",
+  "custom_notes": "Leading commercial negotiation on Acme's side. Pushing for a 12% discount, citing a competing proposal from XYZ."
+}

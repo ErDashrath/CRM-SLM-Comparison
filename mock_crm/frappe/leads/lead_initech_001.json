@@ -1,0 +1,16 @@
+{
+  "name": "lead_initech_001",
+  "owner": "Administrator",
+  "creation": "2026-05-20 09:00:00",
+  "modified": "2026-05-20 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "lead_name": "Neha Kapoor",
+  "company_name": "Initech Solutions",
+  "status": "Converted",
+  "customer": "initech",
+  "industry": "Business Process Outsourcing",
+  "territory": "India - North",
+  "no_of_employees": "500-1000",
+  "annual_revenue": 310000000
+}

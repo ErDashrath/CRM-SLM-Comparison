@@ -1,0 +1,23 @@
+{
+  "name": "acme_corp",
+  "owner": "Administrator",
+  "creation": "2023-04-10 09:00:00",
+  "modified": "2023-04-10 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "customer_name": "Acme Corp",
+  "customer_type": "Company",
+  "customer_group": "Enterprise",
+  "territory": "India - West",
+  "industry": "Industrial Manufacturing",
+  "market_segment": "Enterprise",
+  "default_currency": "INR",
+  "account_manager": "Sanjay Kulkarni",
+  "customer_details": "Long-standing manufacturing client evaluating an expansion of the Nimbus Core Ops Suite deployment plus Analytics and Integration add-ons. Technical evaluation and solution architecture were approved without objection. Deal has stalled in commercial negotiation: procurement is pushing for a discount above the approved band, a competitor (XYZ) has entered with a lower-priced alternative, and the economic buyer has not attended either of the last two negotiation meetings.",
+  "custom_account_health": "at_risk",
+  "custom_relationship_start_date": "2023-04-10",
+  "custom_hq_city": "Pune, Maharashtra",
+  "custom_employee_count": 2400,
+  "custom_annual_revenue": 850000000,
+  "custom_account_owner_role": "Senior Account Executive, Nimbus Systems"
+}

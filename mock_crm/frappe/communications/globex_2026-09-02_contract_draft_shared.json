@@ -1,0 +1,17 @@
+{
+  "name": "globex_2026-09-02_contract_draft_shared",
+  "owner": "Administrator",
+  "creation": "2026-09-02 09:00:00",
+  "modified": "2026-09-02 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Contract draft attached — Globex full rollout",
+  "communication_medium": "Email",
+  "communication_type": "Communication",
+  "sender": "Priya Iyer (priya.iyer@nimbussystems.example)",
+  "recipients": "Meera Pillai, Karthik Subramaniam, Arvind Rao",
+  "content": "**Date:** 2026-09-02\n**From:** Priya Iyer (priya.iyer@nimbussystems.example)\n**To:** Meera Pillai, Karthik Subramaniam, Arvind Rao\n**Subject:** Contract draft attached — Globex full rollout\n\nHi all,\n\nAttached is the contract draft for the full rollout: 150 seats Core Ops Suite, Integration module, Analytics add-on, Standard Support, and the onboarding package, total INR 36,50,000 annually, matching the number Meera confirmed on the 21st.\n\nArvind, happy to jump on a call this week if there's anything you want to walk through on the data-handling terms. Otherwise we're on track for signature by end of next month, as discussed.\n\nBest,\nPriya\n",
+  "communication_date": "2026-09-02 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_globex_001"
+}

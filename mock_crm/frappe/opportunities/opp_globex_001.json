@@ -1,0 +1,78 @@
+{
+  "name": "opp_globex_001",
+  "owner": "Administrator",
+  "creation": "2026-06-01 09:00:00",
+  "modified": "2026-09-02 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "party_name": "globex",
+  "customer": "globex",
+  "customer_name": "Globex Logistics",
+  "title": "Globex Logistics - Core Ops Suite Full Rollout (post-pilot expansion)",
+  "status": "Open",
+  "opportunity_type": "Existing Customer",
+  "opportunity_owner": "Priya Iyer",
+  "sales_stage": "Contract Drafting",
+  "probability": 82,
+  "expected_closing": "2026-09-18",
+  "transaction_date": "2026-06-01",
+  "opportunity_amount": 3650000,
+  "currency": "INR",
+  "contact_person": "karthik-subramaniam-globex",
+  "industry": "Logistics & Supply Chain",
+  "territory": "India - South",
+  "items": [
+    {
+      "item_code": "NIM-CORE",
+      "description": "150 seats @ INR 15,000/seat/year",
+      "qty": 1,
+      "rate": 2250000,
+      "amount": 2250000
+    },
+    {
+      "item_code": "NIM-INTEGRATION",
+      "description": "Integration & API Module, 1 deployment",
+      "qty": 1,
+      "rate": 400000,
+      "amount": 400000
+    },
+    {
+      "item_code": "NIM-SUPPORT-STD",
+      "description": "Standard Support, 1 deployment",
+      "qty": 1,
+      "rate": 100000,
+      "amount": 100000
+    },
+    {
+      "item_code": "NIM-TRAINING",
+      "description": "Onboarding & Training Package (one-time)",
+      "qty": 1,
+      "rate": 250000,
+      "amount": 250000
+    },
+    {
+      "item_code": "NIM-ANALYTICS",
+      "description": "Advanced Analytics Add-on, 1 deployment",
+      "qty": 1,
+      "rate": 650000,
+      "amount": 650000
+    }
+  ],
+  "notes": [
+    {
+      "note": "Expansion opportunity following a successful 6-month pilot. Economic buyer (CFO Meera Pillai) is personally engaged and budget is pre-approved. No competitor is active in the deal. Currently in contract drafting with only administrative redlines outstanding; on track for its original forecast close date. No risk factors identified.",
+      "added_on": "2026-06-01"
+    }
+  ],
+  "custom_last_activity_date": "2026-09-02",
+  "custom_technical_evaluation_approved": 1,
+  "custom_technical_evaluation_approved_date": "2026-08-08",
+  "custom_solution_architecture_approved": 1,
+  "custom_solution_architecture_approved_date": "2026-08-08",
+  "custom_approved_min_discount_pct": 5,
+  "custom_approved_max_discount_pct": 7,
+  "custom_hard_ceiling_discount_pct": 10,
+  "custom_requires_vp_sales_approval_above_pct": 7,
+  "custom_requires_cro_approval_above_pct": 10,
+  "opportunity_risk_factors": []
+}

@@ -1,0 +1,17 @@
+{
+  "name": "globex_2026-08-20_solution_review_call",
+  "owner": "Administrator",
+  "creation": "2026-08-20 09:00:00",
+  "modified": "2026-08-20 09:00:00",
+  "modified_by": "Administrator",
+  "docstatus": 0,
+  "subject": "Call: Solution Review / Commercial Walkthrough",
+  "communication_medium": "Phone",
+  "communication_type": "Communication",
+  "sender": null,
+  "recipients": null,
+  "content": "# Call Transcript — Globex Logistics\n\n**Date:** 2026-08-20\n**Type:** Solution Review / Commercial Walkthrough\n**Participants:** Priya Iyer (Nimbus Systems, Account Executive), Karthik Subramaniam (Globex, Director of Operations), Meera Pillai (Globex, CFO), Arvind Rao (Globex, Procurement Manager)\n\n---\n\n**Priya:** Today I want to walk through the full proposal — 150 seats of Core Ops Suite, Integration module, Analytics add-on, Standard Support, and the onboarding package. Total comes to INR 36.5 lakh annually.\n\n**Meera:** I've reviewed this against the budget I set aside. It's within range — no concerns from my side on the number.\n\n**Arvind:** I'll run the standard contract review on our end, mostly around data handling terms, nothing unusual expected.\n\n**Karthik:** No competing vendor in the mix here, to be clear — we've already seen what Nimbus does firsthand from the pilot. This is about scope and timeline now, not a bake-off.\n\n**Meera:** Agreed. I'd like to see this signed before the end of next month if the contract review goes smoothly.\n\n**Priya:** That timeline works well on our side too. I'll get the contract draft over this week.\n",
+  "communication_date": "2026-08-20 09:00:00",
+  "reference_doctype": "Opportunity",
+  "reference_name": "opp_globex_001"
+}
