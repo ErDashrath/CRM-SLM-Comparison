@@ -225,6 +225,17 @@ _QUESTION_RULES = (
     (r"account|customer|client|portfolio", r".*", "accounts", "lookup", ()),
 )
 
+_EXPLICIT_COUNT_RE = re.compile(
+    r"\b(?:how\s+many|count|number\s+of|total\s+(?:number|count))\b",
+    re.IGNORECASE,
+)
+_RECORD_REQUEST_RE = re.compile(
+    r"\b(?:which|what|who|list|show|name|identify|give\s+me)\b",
+    re.IGNORECASE,
+)
+_RISK_RE = re.compile(r"\b(?:risk|at[\s-]?risk|stalled|threat)\b", re.IGNORECASE)
+_ACCOUNT_RE = re.compile(r"\b(?:account|accounts|customer|customers|client|clients)\b", re.IGNORECASE)
+
 
 def compile_question(question: str, account_scope: str | None = None) -> QueryPlan:
     if not question.strip():
@@ -255,6 +266,29 @@ def compile_question(question: str, account_scope: str | None = None) -> QueryPl
     )
 
 
+def _apply_question_constraints(plan: QueryPlan, question: str) -> QueryPlan:
+    """Keep a weak model plan aligned with the user's explicit intent.
+
+    The planner chooses fields and entities, but it must not turn a record
+    request such as "which accounts" into an aggregate count. These constraints
+    are semantic validation at the database boundary, so they apply equally to
+    model-generated plans and compatibility plans.
+    """
+    updates: dict[str, Any] = {}
+    asks_for_count = bool(_EXPLICIT_COUNT_RE.search(question))
+    asks_for_records = bool(_RECORD_REQUEST_RE.search(question))
+
+    if plan.operation == "count" and asks_for_records and not asks_for_count:
+        updates["operation"] = "search"
+
+    if plan.entity == "accounts" and _ACCOUNT_RE.search(question) and _RISK_RE.search(question):
+        updates["filters"] = {**plan.filters, "account_health": "at_risk"}
+        if not asks_for_count and (asks_for_records or plan.operation == "count"):
+            updates["operation"] = "search"
+
+    return plan.model_copy(update=updates) if updates else plan
+
+
 def validate_plan(raw: QueryPlan | dict[str, Any], question: str, account_scope: str | None = None) -> QueryPlan:
     try:
         if isinstance(raw, QueryPlan):
@@ -264,6 +298,7 @@ def validate_plan(raw: QueryPlan | dict[str, Any], question: str, account_scope:
             plan = QueryPlan.model_validate(payload)
     except ValidationError as exc:
         raise QueryPlanError(str(exc)) from exc
+    plan = _apply_question_constraints(plan, question)
     # The application scope is authoritative. A model cannot widen a scoped
     # view by placing another account in the semantic plan or its filters.
     if account_scope:

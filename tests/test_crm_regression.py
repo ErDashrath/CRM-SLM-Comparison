@@ -136,6 +136,33 @@ def test_at_risk_account_question_returns_accounts_not_portfolio_count():
     assert all("opportunities" in row and "risk_factors" in row for row in result["rows"])
 
 
+def test_model_count_plan_cannot_override_account_record_request():
+    result = execute_question(
+        "Which accounts are at risk right now?",
+        plan={
+            "entity": "accounts",
+            "operation": "count",
+            "requested_fields": ["account", "account_health", "owner"],
+        },
+    )
+    assert result["plan"]["operation"] == "search"
+    assert result["plan"]["filters"] == {"account_health": "at_risk"}
+    assert [row["account"] for row in result["rows"]] == [
+        "Acme Corp",
+        "Delta Freight & Warehousing",
+        "Initech Solutions",
+    ]
+
+
+def test_explicit_at_risk_count_remains_a_count():
+    result = execute_question(
+        "How many accounts are at risk right now?",
+        plan={"entity": "accounts", "operation": "count"},
+    )
+    assert result["plan"]["operation"] == "count"
+    assert result["rows"] == [{"count": 3}]
+
+
 def test_risk_records_are_recovered_if_small_model_claims_evidence_is_missing():
     result = run_crm_tool("Which accounts are at risk right now?")
     answer = _clean_model_answer("The evidence is insufficient to list them.", {"tool": "crm", **result})
