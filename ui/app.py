@@ -54,7 +54,7 @@ SUGGESTIONS = [
     "Which accounts are at risk right now?",
     "Give me a pipeline overview by stage.",
     "What's the deal status for Acme Corp?",
-    "Who are the key contacts at TechNova?",
+    "Who are the key contacts at Acme Corp?",
 ]
 
 # ---------------------------------------------------------------------------
@@ -379,7 +379,9 @@ def _render_chat_answer(result: dict, label: str | None = None) -> None:
 
 # ── Chat messages ────────────────────────────────────────────────────────────
 
-# Suggestion chips — only on empty chat
+# Suggestion chips — only on empty chat.  Keep the selected text in the same
+# execution path as st.chat_input so suggestions trigger the full agent loop.
+selected_prompt = None
 if not conv["messages"]:
     st.space("large")
     with st.container(horizontal_alignment="center"):
@@ -389,13 +391,10 @@ if not conv["messages"]:
             "Suggestions",
             SUGGESTIONS,
             label_visibility="collapsed",
+            key=f"suggestions_{conv['id']}",
         )
         if picked:
-            conv["messages"].append(
-                {"role": "user", "content": picked, "ts": datetime.now().isoformat()}
-            )
-            conv["title"] = _auto_title(picked)
-            st.rerun()
+            selected_prompt = picked
 
 # Render conversation history
 for msg in conv["messages"]:
@@ -420,10 +419,11 @@ for msg in conv["messages"]:
 
 
 # ── Chat input ───────────────────────────────────────────────────────────────
-prompt = st.chat_input(
+typed_prompt = st.chat_input(
     "Ask about accounts, deals, pipeline, contacts…",
     submit_mode="disable",
 )
+prompt = selected_prompt or typed_prompt
 
 if prompt:
     account_id = st.session_state.account_id
