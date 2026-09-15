@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import difflib
 import re
+from collections.abc import Callable
 from pathlib import Path
 from uuid import uuid4
 
@@ -37,6 +38,7 @@ from common.telemetry import default_sink
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 _CHAT_PROMPT_PATH = PROJECT_ROOT / "common" / "system_prompts" / "v2_chat.yaml"
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+_OPEN_THINK_RE = re.compile(r"<think\b[^>]*>.*$", re.DOTALL | re.IGNORECASE)
 
 _COMPACT_EVIDENCE_CHARS = 2400  # slightly more than the NextBestAction pipeline;
                                  # the conversational prompt is shorter so we have room
@@ -235,6 +237,11 @@ def _clean_model_answer(raw: str, tool_result: dict) -> str:
     return _ensure_structured_coverage(answer, tool_result)
 
 
+def visible_stream_text(raw: str) -> str:
+    """Hide complete or still-open model reasoning while text is streaming."""
+    return _OPEN_THINK_RE.sub("", _THINK_RE.sub("", raw or "")).strip()
+
+
 def _build_chat_user_prompt(
     question: str,
     conversation_history: list[dict],
@@ -287,6 +294,7 @@ def rag_chat(
     max_tokens: int = 600,
     session_id: str | None = None,
     turn_id: str | None = None,
+    on_token: Callable[[str], None] | None = None,
 ) -> dict:
     """
     Run a single question through the RAG + tool-calling chat pipeline.
@@ -386,6 +394,7 @@ def rag_chat(
             session_id=session_id,
             turn_id=turn_id,
             telemetry=telemetry,
+            on_token=on_token,
         )
     finally:
         handle.close()

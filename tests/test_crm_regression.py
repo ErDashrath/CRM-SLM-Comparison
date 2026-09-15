@@ -275,6 +275,49 @@ def test_per_model_agent_loop_uses_same_handle_for_tool_decision_and_answer(tmp_
     assert "question_hash" in started["payload"]
 
 
+def test_per_model_agent_loop_streams_final_answer_fragments():
+    class FakeHandle:
+        def generate(self, system_prompt, user_prompt, max_tokens=600):
+            return '{"tool_calls":[{"name":"crm","arguments":{"question":"How many contacts are there?"}}]}'
+
+        def generate_stream(self, system_prompt, user_prompt, max_tokens=600):
+            yield "There are "
+            yield "12 contacts across the portfolio."
+
+    fragments = []
+    turn = run_agent_turn(
+        FakeHandle(),
+        question="How many contacts are there?",
+        variant_name="base",
+        account_id=None,
+        conversation_history=[],
+        system_prompt="system",
+        build_prompt=lambda question, history, tool, hits: f"{question} {tool}",
+        clean_answer=lambda raw, tool: raw.strip(),
+        on_token=fragments.append,
+    )
+    assert fragments == ["There are ", "12 contacts across the portfolio."]
+    assert turn.answer == "There are 12 contacts across the portfolio."
+
+
+def test_variant_handle_stream_reads_llama_delta_chunks():
+    from models.inference import VariantHandle
+
+    class FakeLlama:
+        def create_chat_completion(self, **kwargs):
+            assert kwargs["stream"] is True
+            return iter(
+                [
+                    {"choices": [{"delta": {"role": "assistant"}}]},
+                    {"choices": [{"delta": {"content": "Hello"}}]},
+                    {"choices": [{"delta": {"content": " world"}}]},
+                ]
+            )
+
+    handle = VariantHandle("base", "Base", FakeLlama())
+    assert list(handle.generate_stream("system", "user")) == ["Hello", " world"]
+
+
 def test_prompt_budget_reports_history_compaction():
     history = [{"role": role, "content": "long CRM context " * 500} for role in ("user", "assistant", "user", "assistant")]
     kept, limits = prepare_prompt_context(

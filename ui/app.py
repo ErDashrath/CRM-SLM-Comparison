@@ -30,7 +30,7 @@ import streamlit as st
 from common.context import list_account_ids
 from common.crm_store import database_snapshot
 from common.memory.store import SessionStore
-from common.rag_chat import rag_chat
+from common.rag_chat import rag_chat, visible_stream_text
 from models.inference import list_variants
 
 st.set_page_config(
@@ -497,13 +497,24 @@ if prompt:
                                 "limits": session_limits,
                             }
                         else:
+                            stream_placeholder = st.empty()
+                            stream_parts: list[str] = []
+
+                            def render_stream(fragment: str) -> None:
+                                stream_parts.append(fragment)
+                                visible = visible_stream_text("".join(stream_parts))
+                                if visible:
+                                    stream_placeholder.markdown(visible + " ▌")
+
                             result = rag_chat(
                                 question=prompt,
                                 variant_name=vname,
                                 account_id=account_id,
                                 conversation_history=history,
                                 session_id=conv["id"],
+                                on_token=render_stream,
                             )
+                            stream_placeholder.empty()
                             if session_limits["session_limit_warning"]:
                                 result["limits"] = {**result.get("limits", {}), **session_limits}
                         if score_judge and judge_backend and result.get("model_used"):

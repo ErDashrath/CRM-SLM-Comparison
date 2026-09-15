@@ -21,6 +21,7 @@ before load()-ing the next.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Optional
 
@@ -60,6 +61,25 @@ class VariantHandle:
             temperature=0.2,
         )
         return result["choices"][0]["message"]["content"]
+
+    def generate_stream(
+        self, system_prompt: str, user_prompt: str, max_tokens: int = 512
+    ) -> Iterator[str]:
+        """Yield final-answer text fragments from the resident local model."""
+        stream = self._llm.create_chat_completion(
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=max_tokens,
+            temperature=0.2,
+            stream=True,
+        )
+        for chunk in stream:
+            delta = chunk["choices"][0].get("delta") or {}
+            content = delta.get("content")
+            if content:
+                yield content
 
     def close(self) -> None:
         """Release VRAM before loading a different variant -- required on

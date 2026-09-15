@@ -33,6 +33,7 @@ def run_agent_turn(
     session_id: str | None = None,
     turn_id: str | None = None,
     telemetry: TelemetrySink | None = None,
+    on_token: Callable[[str], None] | None = None,
 ) -> AgentTurn:
     """Run planning, validated tool execution, and final synthesis once."""
     telemetry = telemetry or default_sink()
@@ -152,7 +153,16 @@ def run_agent_turn(
         }
     )
     model_started = perf_counter()
-    raw = handle.generate(system_prompt, prompt, max_tokens=max_tokens)
+    if on_token is None:
+        raw = handle.generate(system_prompt, prompt, max_tokens=max_tokens)
+    else:
+        raw_parts: list[str] = []
+        for fragment in handle.generate_stream(
+            system_prompt, prompt, max_tokens=max_tokens
+        ):
+            raw_parts.append(fragment)
+            on_token(fragment)
+        raw = "".join(raw_parts)
     cleaned = clean_answer(raw, tool_result)
     debug_trace["final_raw_output"] = raw
     debug_trace["final_cleaned_output"] = cleaned
