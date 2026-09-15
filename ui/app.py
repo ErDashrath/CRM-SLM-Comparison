@@ -18,6 +18,8 @@ import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
+from queue import Queue
+from threading import Thread
 
 _APP_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _APP_DIR.parent
@@ -118,6 +120,49 @@ def _group_by_date(convs: list[dict]) -> dict[str, list[dict]]:
         else:
             groups["Earlier"].append(c)
     return groups
+
+
+def _stream_rag_chat(**kwargs):
+    """Bridge the model callback to Streamlit's native write_stream API."""
+    events = Queue()
+    outcome: dict = {}
+
+    def on_token(fragment: str) -> None:
+        events.put(("token", fragment))
+
+    def run() -> None:
+        try:
+            outcome["result"] = rag_chat(on_token=on_token, **kwargs)
+        except Exception as exc:  # surface model failures in the UI thread
+            outcome["error"] = exc
+        finally:
+            events.put(("done", None))
+
+    worker = Thread(target=run, name="crm-model-stream", daemon=True)
+    worker.start()
+
+    def fragments():
+        raw_parts: list[str] = []
+        rendered = ""
+        while True:
+            kind, payload = events.get()
+            if kind == "done":
+                break
+            raw_parts.append(payload)
+            visible = visible_stream_text("".join(raw_parts))
+            if visible.startswith(rendered):
+                delta = visible[len(rendered):]
+            else:
+                delta = visible
+            rendered = visible
+            if delta:
+                yield delta
+
+        worker.join()
+        if "error" in outcome:
+            raise outcome["error"]
+
+    return fragments(), outcome
 
 
 # ---------------------------------------------------------------------------
@@ -497,24 +542,15 @@ if prompt:
                                 "limits": session_limits,
                             }
                         else:
-                            stream_placeholder = st.empty()
-                            stream_parts: list[str] = []
-
-                            def render_stream(fragment: str) -> None:
-                                stream_parts.append(fragment)
-                                visible = visible_stream_text("".join(stream_parts))
-                                if visible:
-                                    stream_placeholder.markdown(visible + " ▌")
-
-                            result = rag_chat(
+                            stream, stream_outcome = _stream_rag_chat(
                                 question=prompt,
                                 variant_name=vname,
                                 account_id=account_id,
                                 conversation_history=history,
                                 session_id=conv["id"],
-                                on_token=render_stream,
                             )
-                            stream_placeholder.empty()
+                            st.write_stream(stream)
+                            result = stream_outcome["result"]
                             if session_limits["session_limit_warning"]:
                                 result["limits"] = {**result.get("limits", {}), **session_limits}
                         if score_judge and judge_backend and result.get("model_used"):
